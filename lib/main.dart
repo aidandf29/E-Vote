@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       // home: Home(),
       routes: {
-        "/": (context) => CreateVoting1(),
+        "/": (context) => createVoting3(),
         "/login": (context) => SignIn(),
         "/signup": (context) => SignUp(),
         "/scanf": (context) => ScanFinger(),

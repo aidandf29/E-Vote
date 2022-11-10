@@ -6,6 +6,7 @@ import 'package:dio/dio.dart';
 import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:evote/pages/createVoting/create_voting2.dart';
 
 void main() => runApp(const CreateVoting1());
 
@@ -275,6 +276,60 @@ class MyCustomFormState extends State<MyCustomForm> {
               ),
             )),
             Container(
+              child: Text('Silahkan Upload File',
+                  style: TextStyle(
+                      fontFamily: 'Poppins',
+                      fontSize: 16,
+                      color: Colors.white)),
+              padding: EdgeInsets.fromLTRB(5, 20, 0, 5),
+            ),
+            TextFormField(
+              decoration: InputDecoration(
+                contentPadding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                fillColor: Colors.white,
+                filled: true,
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: BorderSide.none,
+                ),
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.fromLTRB(30, 15, 130, 0),
+              child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Icon(
+                      Icons.info,
+                      color: Colors.white,
+                    ),
+                    Text(
+                      "Pastikan Format benar, sistem akan \n\ mendeteksi terkait siapa saja \n\ yang bisa akses voting ini",
+                      style: TextStyle(
+                          fontFamily: 'Poppins',
+                          fontSize: 10,
+                          color: Colors.white),
+                    )
+                  ]),
+            ),
+            Container(
+                padding: EdgeInsets.fromLTRB(0, 15, 30, 0),
+                child: GestureDetector(
+                  onTap: () {
+                    getImage();
+                  },
+                  child: Center(
+                    child: ClipRRect(
+                      child: Image.asset(
+                        'assets/image/upload.jpg',
+                        width: 300,
+                        height: 200,
+                      ),
+                      borderRadius: BorderRadius.circular(50.0),
+                    ),
+                  ),
+                )),
+            Container(
                 child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
@@ -288,8 +343,13 @@ class MyCustomFormState extends State<MyCustomForm> {
                           if (_formKey.currentState!.validate()) {
                             // If the form is valid, display a snackbar. In the real world,
                             // you'd often call a server or save the information in a database.
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(content: Text('Processing Data')),
+                            // ScaffoldMessenger.of(context).showSnackBar(
+                            //   const SnackBar(content: Text('Processing Data')),
+                            // );
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const CreateVoting2()),
                             );
                           }
                         },
