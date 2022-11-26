@@ -1,3 +1,4 @@
+import 'package:evote/pages/createVoting/create_voting3.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'dart:io';
@@ -7,6 +8,7 @@ import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:evote/pages/createVoting/create_voting1.dart';
+import 'package:evote/pages/createVoting/multi_form.dart';
 
 void main() => runApp(const CreateVoting2());
 
@@ -251,9 +253,14 @@ class MyCustomFormState extends State<MyCustomForm> {
                           if (_formKey.currentState!.validate()) {
                             // If the form is valid, display a snackbar. In the real world,
                             // you'd often call a server or save the information in a database.
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(content: Text('Processing Data')),
-                            );
+                            // ScaffoldMessenger.of(context).showSnackBar(
+                            //   const SnackBar(content: Text('Processing Data')),
+                            // );
+                            // Navigator.push(
+                            //   context,
+                            //   MaterialPageRoute(
+                            //       builder: (context) => MultiForm()),
+                            // );
                           }
                         },
                         style: ElevatedButton.styleFrom(

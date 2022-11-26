@@ -14,7 +14,7 @@ class createVoting3 extends StatelessWidget {
         platform: TargetPlatform.iOS,
       ),
       debugShowCheckedModeBanner: false,
-      home: MultiForm(),
+      // home: MultiForm(),
     );
   }
 }

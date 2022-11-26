@@ -88,10 +88,10 @@ class _UserFormState extends State<UserForm> {
               Padding(
                 padding: EdgeInsets.only(left: 16, right: 16, bottom: 24),
                 child: TextFormField(
-                  initialValue: widget.user.email,
-                  onSaved: (val) => widget.user.email = val!,
+                  initialValue: widget.user.description,
+                  onSaved: (val) => widget.user.description = val!,
                   validator: (val) =>
-                      val!.contains('@') ? null : 'Email is invalid',
+                      val!.length > 0 ? null : 'Description is Empty',
                   decoration: InputDecoration(
                     contentPadding: EdgeInsets.fromLTRB(10, 0, 0, 0),
                     fillColor: Colors.white,
@@ -103,35 +103,35 @@ class _UserFormState extends State<UserForm> {
                   ),
                 ),
               ),
-              Padding(
-                padding: EdgeInsets.only(left: 16, right: 16, top: 16),
-                child: Container(
-                  child: Text('File Penunjang',
-                      style: TextStyle(
-                          fontFamily: 'Poppins',
-                          fontSize: 14,
-                          color: Colors.black)),
-                  padding: EdgeInsets.fromLTRB(5, 0, 0, 5),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(left: 16, right: 16, bottom: 24),
-                child: TextFormField(
-                  initialValue: widget.user.email,
-                  onSaved: (val) => widget.user.email = val!,
-                  validator: (val) =>
-                      val!.contains('@') ? null : 'Email is invalid',
-                  decoration: InputDecoration(
-                    contentPadding: EdgeInsets.fromLTRB(10, 0, 0, 0),
-                    fillColor: Colors.white,
-                    filled: true,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide.none,
-                    ),
-                  ),
-                ),
-              )
+              // Padding(
+              //   padding: EdgeInsets.only(left: 16, right: 16, top: 16),
+              //   child: Container(
+              //     child: Text('File Penunjang',
+              //         style: TextStyle(
+              //             fontFamily: 'Poppins',
+              //             fontSize: 14,
+              //             color: Colors.black)),
+              //     padding: EdgeInsets.fromLTRB(5, 0, 0, 5),
+              //   ),
+              // ),
+              // Padding(
+              //   padding: EdgeInsets.only(left: 16, right: 16, bottom: 24),
+              //   child: TextFormField(
+              //     initialValue: widget.user.email,
+              //     onSaved: (val) => widget.user.email = val!,
+              //     validator: (val) =>
+              //         val!.contains('@') ? null : 'Email is invalid',
+              //     decoration: InputDecoration(
+              //       contentPadding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+              //       fillColor: Colors.white,
+              //       filled: true,
+              //       border: OutlineInputBorder(
+              //         borderRadius: BorderRadius.circular(10),
+              //         borderSide: BorderSide.none,
+              //       ),
+              //     ),
+              //   ),
+              // )
             ],
           ),
         ),

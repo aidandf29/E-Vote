@@ -1,3 +1,4 @@
+import 'package:evote/pages/createVoting/multi_form.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'dart:io';
@@ -7,11 +8,14 @@ import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:evote/pages/createVoting/create_voting2.dart';
+import 'package:evote/pages/createVoting/multi_form.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() => runApp(const CreateVoting1());
 
 class CreateVoting1 extends StatelessWidget {
   const CreateVoting1({Key? key}) : super(key: key);
+  
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +47,14 @@ class MyCustomForm extends StatefulWidget {
 }
 
 class MyCustomFormState extends State<MyCustomForm> {
+  late SharedPreferences sharedPreferences;
   String _selectedDate = 'Tap to select date';
+  String _date = '';
+  String now = '';
+  TextEditingController namaController = TextEditingController();
+  TextEditingController jumlahController = TextEditingController();
+  TextEditingController tanggalController = TextEditingController();
+  TextEditingController votersController = TextEditingController();
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? d = await showDatePicker(
       context: context,
@@ -54,6 +65,8 @@ class MyCustomFormState extends State<MyCustomForm> {
     if (d != null)
       setState(() {
         _selectedDate = new DateFormat.yMMMMd("en_US").format(d);
+        _date = new DateFormat('yyyy-MM-dd').format(d);
+        now = new DateFormat('yyyy-MM-dd').format(DateTime.now());
       });
   }
 
@@ -101,6 +114,48 @@ class MyCustomFormState extends State<MyCustomForm> {
     //   responseString = String.fromCharCodes(await response.stream.toBytes());
     // }
     // print(responseString);
+  }
+
+  create(nama, started_date, finished_date, voters) async {
+    var jsonResponse = null;
+    List<String> list = voters.split(',');
+    print(nama);
+    // final response = await http.post(
+    //   Uri.parse("http://localhost:1337/api/votings"),
+    //   headers: <String, String>{
+    //     'Content-Type': 'application/json; charset=UTF-8',
+    //   },
+    //   body: jsonEncode(<Object, dynamic>{
+    //     "data": {
+    //       "started_date": started_date,
+    //       "finished_date": finished_date,
+    //       "Nama": nama,
+    //       "voters": list
+         
+    //     }
+    //   }),
+    // );
+    // jsonResponse = (response.body);
+    // var jsonValue = json.decode(jsonResponse['meta']);
+    // Map<Object, dynamic> user = jsonDecode(jsonResponse);
+    // print("[${voters}]");
+    // Map<Object, dynamic> user1 = jsonEncode(user['data'][0]);
+    // print(user1['name']);
+
+    // if (user['data'].length == 0) {
+    //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+    //     content: const Text('Failed to Sign In'),
+    //     duration: const Duration(seconds: 1),
+    //   ));
+    // } else {
+      print("create voting success");
+      // print(jsonResponse.data[0].nama);
+     Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (BuildContext context) =>
+                                          MultiForm(started_date: started_date, finished_date: finished_date, nama: nama, list: list)));
+    // }
   }
 
   @override
@@ -168,6 +223,7 @@ class MyCustomFormState extends State<MyCustomForm> {
               padding: EdgeInsets.fromLTRB(5, 20, 0, 5),
             ),
             TextFormField(
+              controller: namaController,
               decoration: InputDecoration(
                 contentPadding: EdgeInsets.fromLTRB(10, 0, 0, 0),
                 fillColor: Colors.white,
@@ -187,6 +243,7 @@ class MyCustomFormState extends State<MyCustomForm> {
               padding: EdgeInsets.fromLTRB(5, 20, 0, 5),
             ),
             TextFormField(
+              controller: jumlahController,
               decoration: InputDecoration(
                 contentPadding: EdgeInsets.fromLTRB(10, 0, 0, 0),
                 fillColor: Colors.white,
@@ -198,7 +255,7 @@ class MyCustomFormState extends State<MyCustomForm> {
               ),
               validator: (val) {
                 if (val == null || val == "") {
-                  return 'Please enter a phone number';
+                  return 'Please enter the number of candidates';
                 }
                 if (int.tryParse(val) == null) {
                   return 'Only enter numbers in the phone number field';
@@ -276,26 +333,26 @@ class MyCustomFormState extends State<MyCustomForm> {
               ),
             )),
             Container(
-              child: Text('Silahkan Upload File',
+              child: Text('Silahkan Masukkan ID Voters',
                   style: TextStyle(
                       fontFamily: 'Poppins',
                       fontSize: 16,
                       color: Colors.white)),
               padding: EdgeInsets.fromLTRB(5, 20, 0, 5),
             ),
-            TextFormField(
-              decoration: InputDecoration(
-                contentPadding: EdgeInsets.fromLTRB(10, 0, 0, 0),
-                fillColor: Colors.white,
-                filled: true,
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
-                  borderSide: BorderSide.none,
-                ),
-              ),
-            ),
+            // TextFormField(
+            //   decoration: InputDecoration(
+            //     contentPadding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+            //     fillColor: Colors.white,
+            //     filled: true,
+            //     border: OutlineInputBorder(
+            //       borderRadius: BorderRadius.circular(10),
+            //       borderSide: BorderSide.none,
+            //     ),
+            //   ),
+            // ),
             Container(
-              padding: EdgeInsets.fromLTRB(30, 15, 130, 0),
+              padding: EdgeInsets.fromLTRB(30, 15, 130, 30),
               child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -304,7 +361,7 @@ class MyCustomFormState extends State<MyCustomForm> {
                       color: Colors.white,
                     ),
                     Text(
-                      "Pastikan Format benar, sistem akan \n\ mendeteksi terkait siapa saja \n\ yang bisa akses voting ini",
+                      "Setiap ID dibatasi dengan koma (,). Contoh 1,2,3,4.\n\ Pastikan Format benar, sistem akan \n\ mendeteksi terkait siapa saja \n\ yang bisa akses voting ini",
                       style: TextStyle(
                           fontFamily: 'Poppins',
                           fontSize: 10,
@@ -312,23 +369,44 @@ class MyCustomFormState extends State<MyCustomForm> {
                     )
                   ]),
             ),
-            Container(
-                padding: EdgeInsets.fromLTRB(0, 15, 30, 0),
-                child: GestureDetector(
-                  onTap: () {
-                    getImage();
-                  },
-                  child: Center(
-                    child: ClipRRect(
-                      child: Image.asset(
-                        'assets/image/upload.jpg',
-                        width: 300,
-                        height: 200,
-                      ),
-                      borderRadius: BorderRadius.circular(50.0),
-                    ),
-                  ),
-                )),
+            // Container(
+            //     padding: EdgeInsets.fromLTRB(0, 15, 30, 0),
+            //     child: GestureDetector(
+            //       onTap: () {
+            //         getImage();
+            //       },
+            //       child: Center(
+            //         child: ClipRRect(
+            //           child: Image.asset(
+            //             'assets/image/upload.jpg',
+            //             width: 300,
+            //             height: 200,
+            //           ),
+            //           borderRadius: BorderRadius.circular(50.0),
+            //         ),
+            //       ),
+            //     )),
+            TextFormField(
+              controller: votersController,
+              decoration: InputDecoration(
+                contentPadding: EdgeInsets.fromLTRB(10, 0, 0, 50),
+                fillColor: Colors.white,
+                filled: true,
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: BorderSide.none,
+                ),
+              ),
+              // validator: (val) {
+              //   if (val == null || val == "") {
+              //     return 'Please enter the number of candidates';
+              //   }
+              //   if (int.tryParse(val) == null) {
+              //     return 'Only enter numbers in the phone number field';
+              //   }
+              //   return null;
+              // },
+            ),
             Container(
                 child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -346,11 +424,12 @@ class MyCustomFormState extends State<MyCustomForm> {
                             // ScaffoldMessenger.of(context).showSnackBar(
                             //   const SnackBar(content: Text('Processing Data')),
                             // );
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const CreateVoting2()),
-                            );
+                            // Navigator.push(
+                            //   context,
+                            //   MaterialPageRoute(
+                            //       builder: (context) => MultiForm()),
+                            // );
+                            create(namaController.text, now, _date, votersController.text);
                           }
                         },
                         style: ElevatedButton.styleFrom(
