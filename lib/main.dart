@@ -7,7 +7,10 @@ import 'package:evote/pages/createVoting/create_voting1.dart';
 import 'package:evote/pages/createVoting/create_voting2.dart';
 import 'package:evote/pages/createVoting/create_voting3.dart';
 import 'package:evote/pages/splash.dart';
+import 'package:evote/pages/scan_fingerprint_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:local_auth/local_auth.dart';
+
 // import 'package:get/get.dart';
 import 'pages/home.dart';
 
@@ -19,10 +22,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       // home: Home(),
       routes: {
-        "/": (context) => SignIn(),
+        "/": (context) => FingerprintAuth(),
         "/login": (context) => Home(),
         "/signup": (context) => SignUp(),
-        "/scanf": (context) => ScanFinger(),
+        "/scanf": (context) => SignIn(),
         "/pinauth": (context) => PinAuthPage(),
         "/splash": (context) => Splash(),
       },
