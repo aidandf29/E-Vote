@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
         "/": (context) => SignIn(),
         "/login": (context) => Home(),
         "/signup": (context) => SignUp(),
-        "/scanf": (context) => SignIn(),
+        // "/scanf": (context) => SignIn(),
         "/pinauth": (context) => PinAuthPage(),
         "/splash": (context) => Splash(),
         "/profile": (context) => Profile()
