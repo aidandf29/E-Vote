@@ -6,6 +6,8 @@ import 'dart:ui';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import '../main.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:get/get.dart';
 
 // import 'package:get/get.dart';
 
@@ -20,11 +22,50 @@ class InitState extends State<SignIn> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
+  bool _showPassword = true;
+
+  void _toggleShow() {
+    setState(() {
+      _showPassword = !_showPassword;
+    });
+  }
+
   // List<Login> _destinations = <Login>[];
   @override
   void initState() {
     super.initState();
     // _populateDestinations();
+  }
+
+  login(String email, pass) async {
+    final SharedPreferences sharedPreferences =
+        await SharedPreferences.getInstance();
+    var jsonResponse = null;
+    final response = await http.get(
+      Uri.parse(
+          "http://localhost:1337/api/voters?filters[email][\$eqi]=${email}&filters[password][\$eq]=${pass}"),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+    );
+    jsonResponse = (response.body);
+    // var jsonValue = json.decode(jsonResponse['meta']);
+    Map<Object, dynamic> user = jsonDecode(jsonResponse);
+    // Map<Object, dynamic> user1 = jsonEncode(user['data'][0]);
+    // print(user1['name']);
+
+    if (user['data'].length == 0) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: const Text('Failed to Sign In'),
+        duration: const Duration(seconds: 1),
+      ));
+    } else {
+      sharedPreferences.setString('email', email);
+      print("login success");
+      print(sharedPreferences);
+      // print(jsonResponse.data[0].nama);
+      Navigator.pushReplacementNamed(context, '/');
+    }
   }
 
   @override
@@ -45,14 +86,14 @@ class InitState extends State<SignIn> {
               Stack(
                 children: [
                   Container(
-                    margin: EdgeInsets.fromLTRB(0.0, 25.0, 15.0, 0.0),
+                    margin: EdgeInsets.fromLTRB(0.0, 15.0, 15.0, 0.0),
                     alignment: Alignment.topRight,
                     child:
                         Image.asset('assets/image/logo_real.png', width: 70.0),
                   ),
                 ],
               ),
-              Padding(padding: EdgeInsets.only(bottom: 210)),
+              Padding(padding: EdgeInsets.only(bottom: 105)),
               //text container
               Container(
                   alignment: Alignment.center,
@@ -75,7 +116,7 @@ class InitState extends State<SignIn> {
                       ],
                     ),
                   ))),
-              Padding(padding: EdgeInsets.only(bottom: 100)),
+              Padding(padding: EdgeInsets.only(bottom: 80)),
               //email field
               SizedBox(
                 width: 300,
@@ -137,7 +178,7 @@ class InitState extends State<SignIn> {
                           color: Colors.white60,
                         ),
                       ))),
-              Padding(padding: EdgeInsets.only(bottom: 70)),
+              Padding(padding: EdgeInsets.only(bottom: 73)),
               //button submit
               Container(
                 margin: EdgeInsets.only(right: 30),
@@ -146,11 +187,12 @@ class InitState extends State<SignIn> {
                   height: 45,
                   onPressed: () => {
                     // _populateDestinations()
+                    login(emailController.text, passwordController.text)
                   },
                   child: Image.asset('assets/image/submit.png', width: 45),
                 ),
               ),
-              Padding(padding: EdgeInsets.only(bottom: 120)),
+              Padding(padding: EdgeInsets.only(bottom: 109)),
               //Bottom text
               RichText(
                 textAlign: TextAlign.center,

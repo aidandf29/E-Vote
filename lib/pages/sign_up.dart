@@ -19,12 +19,65 @@ class InitState extends State<SignUp> {
   String userId = '';
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  TextEditingController nameController = TextEditingController();
 
   // List<Login> _destinations = <Login>[];
   @override
   void initState() {
     super.initState();
     // _populateDestinations();
+  }
+
+  signup(String name, email, pass) async {
+    var jsonResponse = null;
+    final getEmailUnique = await http.get(
+      Uri.parse(
+          "http://localhost:1337/api/voters?filters[email][\$eqi]=${email}"),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+    );
+    var emailResponse = (getEmailUnique.body);
+    // var jsonValue = json.decode(jsonResponse['meta']);
+    Map<Object, dynamic> user = jsonDecode(emailResponse);
+    // Map<Object, dynamic> user1 = jsonEncode(user['data'][0]);
+    print(user['data'].length);
+    if (user['data'].length == 0) {
+      final response = await http.post(
+        Uri.parse("http://localhost:1337/api/voters"),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(<Object, dynamic>{
+          "data": {
+            "Name": name,
+            "Email": email,
+            "Password": pass,
+          }
+        }),
+      );
+      jsonResponse = (response.body);
+      // var jsonValue = json.decode(jsonResponse['meta']);
+      // Map<Object, dynamic> user = jsonDecode(jsonResponse);
+      // Map<Object, dynamic> user1 = jsonEncode(user['data'][0]);
+      print(jsonResponse);
+
+      if (user['data'] == null) {
+         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: const Text('Failed to Sign Up'),
+            duration: const Duration(seconds: 1),
+          ));
+      } else {
+        print("signup success");
+        Navigator.pushReplacementNamed(context, '/');
+      }
+    }
+    else{
+       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: const Text('Email already registered'),
+            duration: const Duration(seconds: 8),
+        ));
+    }
   }
 
   @override
@@ -80,7 +133,7 @@ class InitState extends State<SignUp> {
               SizedBox(
                 width: 300,
                 child: TextFormField(
-                    // controller: nameController,
+                    controller: nameController,
                     style: TextStyle(
                       color: Colors.white,
                       fontFamily: 'Poppins',
@@ -172,32 +225,35 @@ class InitState extends State<SignUp> {
                 child: MaterialButton(
                   height: 45,
                   onPressed: () => {
-                    // if (emailController.text.isEmpty ||
-                    //     passwordController.text.isEmpty ||
-                    //     nameController.text.isEmpty)
-                    //   {
-                    //     ScaffoldMessenger.of(context).showSnackBar(
-                    //       const SnackBar(
-                    //           content: Text('Empty Name, Email, or Password.')),
-                    //     )
-                    //   }
-                    // else if (!RegExp(
-                    //         r'^.+@[a-zA-Z]+\.{1}[a-zA-Z]+(\.{0,1}[a-zA-Z]+)$')
-                    //     .hasMatch(emailController.text))
-                    //   {
-                    //     ScaffoldMessenger.of(context).showSnackBar(
-                    //       const SnackBar(content: Text('Email not valid.')),
-                    //     )
-                    //   }
-                    // else if (passwordController.text.length < 8)
-                    //   {
-                    //     ScaffoldMessenger.of(context).showSnackBar(
-                    //       const SnackBar(
-                    //           content: Text('Password is less than 8.')),
-                    //     )
-                    //   }
-                    // else
-                    //   {_populateDestinations()}
+                    if (emailController.text.isEmpty ||
+                        passwordController.text.isEmpty ||
+                        nameController.text.isEmpty)
+                      {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                              content: Text('Empty Name, Email, or Password.')),
+                        )
+                      }
+                    else if (!RegExp(
+                            r'^.+@[a-zA-Z]+\.{1}[a-zA-Z]+(\.{0,1}[a-zA-Z]+)$')
+                        .hasMatch(emailController.text))
+                      {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('Email not valid.')),
+                        )
+                      }
+                    else if (passwordController.text.length < 8)
+                      {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                              content: Text('Password is less than 8.')),
+                        )
+                      }
+                    else
+                      {
+                        signup(nameController.text, emailController.text,
+                            passwordController.text)
+                      }
                   },
                   child: Image.asset('assets/image/submit.png', width: 45),
                 ),
