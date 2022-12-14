@@ -10,13 +10,14 @@ class CandidateInfo extends StatelessWidget {
       body: Container(
           child: Column(
         children: [
-          Padding(padding: EdgeInsets.only(top: 100)),
+          Padding(padding: EdgeInsets.only(top: 50)),
           Container(
+              width: 360,
               height: 80,
               child: Text("Pemilihan Ketua Himpunan",
                   textAlign: TextAlign.center,
-                  style: TextStyle(color: Colors.white, fontSize: 35))),
-          Padding(padding: EdgeInsets.only(top: 40)),
+                  style: TextStyle(color: Colors.white, fontSize: 30))),
+          Padding(padding: EdgeInsets.only(top: 25)),
           Container(
             child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
               Container(
@@ -55,7 +56,7 @@ class CandidateInfo extends StatelessWidget {
               height: 250,
               width: 330,
               alignment: Alignment.topCenter,
-              padding: EdgeInsets.all(25),
+              padding: EdgeInsets.all(20),
               decoration: BoxDecoration(
                   color: Color(0xFF0094B6),
                   borderRadius: BorderRadius.circular(25)),

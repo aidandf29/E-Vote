@@ -27,13 +27,15 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       // home: Home(),
       routes: {
-        "/": (context) => SignIn(),
+        "/": (context) => CandidateInfo(),
         "/login": (context) => Home(),
         "/signup": (context) => SignUp(),
         // "/scanf": (context) => SignIn(),
         "/pinauth": (context) => PinAuthPage(),
         "/splash": (context) => Splash(),
-        "/profile": (context) => Profile()
+        "/profile": (context) => Profile(),
+        "/profile": (context) => CandidateChoose(),
+        "/candicateInfo": (context) => CandidateInfo()
       },
     );
   }
