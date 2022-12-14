@@ -11,6 +11,7 @@ import 'package:evote/pages/createVoting/create_voting1.dart';
 import 'package:evote/pages/createVoting/create_voting2.dart';
 import 'package:evote/pages/createVoting/create_voting3.dart';
 import 'package:evote/pages/createVoting/multi_form.dart';
+import 'package:evote/pages/manage_vote.dart';
 import 'package:evote/pages/splash.dart';
 import 'package:evote/pages/scan_fingerprint_auth.dart';
 import 'package:flutter/material.dart';
@@ -33,6 +34,10 @@ class MyApp extends StatelessWidget {
         // "/scanf": (context) => SignIn(),
         "/pinauth": (context) => PinAuthPage(),
         "/splash": (context) => Splash(),
+        "/create": (context) => CreateVoting1(),
+        "/manage": (context) => ManageVoting(),
+
+        // "/calon": (context) => MultiForm(),
         "/profile": (context) => Profile(),
         "/profile": (context) => CandidateChoose(),
         "/candicateInfo": (context) => CandidateInfo()
