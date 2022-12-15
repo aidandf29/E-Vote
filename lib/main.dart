@@ -1,6 +1,7 @@
 import 'package:evote/pages/history.dart';
 import 'package:evote/pages/home.dart';
 import 'package:evote/pages/letsVote/choose_feedback.dart';
+import 'package:evote/pages/letsVote/chose_candidate.dart';
 import 'package:evote/pages/letsVote/desc_candidate.dart';
 import 'package:evote/pages/pin_auth_page.dart';
 import 'package:evote/pages/profil.dart';
@@ -28,7 +29,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       // home: Home(),
       routes: {
-        "/": (context) => CandidateInfo(),
+        "/": (context) => CandidateChoose(),
         "/login": (context) => Home(),
         "/signup": (context) => SignUp(),
         // "/scanf": (context) => SignIn(),

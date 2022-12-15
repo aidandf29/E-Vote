@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_connect/http/src/utils/utils.dart';
 
-class CandidateChoose extends StatelessWidget {
+class CandidateChooseCancel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

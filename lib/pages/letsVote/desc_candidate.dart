@@ -23,7 +23,7 @@ class CandidateInfo extends StatelessWidget {
               Container(
                 child: MaterialButton(
                   child: Icon(Icons.arrow_left_rounded,
-                      size: 80, color: Colors.white),
+                      size: 60, color: Colors.white),
                   onPressed: () {},
                 ),
               ),
@@ -40,7 +40,7 @@ class CandidateInfo extends StatelessWidget {
               Container(
                 child: MaterialButton(
                   child: Icon(Icons.arrow_right_rounded,
-                      size: 80, color: Colors.white),
+                      size: 60, color: Colors.white),
                   onPressed: () {},
                 ),
               ),
@@ -53,15 +53,16 @@ class CandidateInfo extends StatelessWidget {
                   textAlign: TextAlign.center,
                   style: TextStyle(color: Colors.white, fontSize: 28))),
           Container(
-              height: 250,
+              height: 185,
               width: 330,
-              alignment: Alignment.topCenter,
+              alignment: Alignment.center,
               padding: EdgeInsets.all(20),
               decoration: BoxDecoration(
                   color: Color(0xFF0094B6),
                   borderRadius: BorderRadius.circular(25)),
               child: Text(
-                "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
+                //MAX 300 CHARACTER
+                "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. sdwddmkwajdnfwidmdokwjfniwancwaibfiuaewnfnanifenfipena",
                 style: TextStyle(color: Colors.white, fontSize: 15),
               )),
           Padding(padding: EdgeInsets.only(top: 20)),
