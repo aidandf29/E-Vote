@@ -68,25 +68,24 @@ class History extends StatelessWidget {
                         ))),
               ),
               Container(
-                  height: 650,
                   child: Expanded(
-                    child: GridView(
-                      shrinkWrap: true,
-                      padding: EdgeInsets.all(10),
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        childAspectRatio: 0.65,
-                      ),
-                      children: [
-                        VoteCard(),
-                        VoteCard(),
-                        VoteCard(),
-                        VoteCard(),
-                        VoteCard(),
-                        VoteCard(),
-                      ],
-                    ),
-                  )),
+                child: GridView(
+                  shrinkWrap: true,
+                  padding: EdgeInsets.all(15),
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    childAspectRatio: 0.76,
+                  ),
+                  children: [
+                    VoteCard(),
+                    VoteCard(),
+                    VoteCard(),
+                    VoteCard(),
+                    VoteCard(),
+                    VoteCard(),
+                  ],
+                ),
+              )),
             ],
           ),
         ));

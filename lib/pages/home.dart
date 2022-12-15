@@ -33,7 +33,7 @@ class Home extends StatelessWidget {
             //Voting Terdaftar ListViewnya
             Container(
               padding: EdgeInsets.fromLTRB(20, 20, 20, 10),
-              height: 330,
+              height: 285,
               child: Expanded(
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
@@ -64,7 +64,7 @@ class Home extends StatelessWidget {
             //Voting Buatan Anda ListView
             Container(
               padding: EdgeInsets.fromLTRB(20, 20, 20, 10),
-              height: 330,
+              height: 285,
               child: Expanded(
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
