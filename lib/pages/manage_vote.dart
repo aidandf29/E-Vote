@@ -229,26 +229,28 @@ class ManageVote extends StatefulWidget {
   }
 }
 
-class ManageVoteState extends State<ManageVote> with AutomaticKeepAliveClientMixin {
+class ManageVoteState extends State<ManageVote>
+    with AutomaticKeepAliveClientMixin {
   // late List<Data>? data = _votings.data;
   late final _votings;
   late num total_vote = 0;
   late List<dataVoting> _chartData;
-  bool isLoading=false;
+  bool isLoading = false;
   // late final vote;
   @override
   void initState() {
-    
-     isLoading=true;
+    isLoading = true;
     _populateVoting();
     super.initState();
     // _chartData = getChartData();
     // print('data ${data}');
   }
-  List<dataVoting> getChartData()  {
+
+  List<dataVoting> getChartData() {
     final List<dataVoting> chartData = [];
-    for (var i=0;i<_votings.data.length;i++){
-      var test= dataVoting('${_votings.data.attributes.nama}', _votings.data.attributes.jumlahVote);
+    for (var i = 0; i < _votings.data.length; i++) {
+      var test = dataVoting('${_votings.data.attributes.nama}',
+          _votings.data.attributes.jumlahVote);
       chartData.add(test);
     }
     return chartData;
@@ -265,7 +267,7 @@ class ManageVoteState extends State<ManageVote> with AutomaticKeepAliveClientMix
       }
       print(total_vote);
     });
-    isLoading=false;
+    isLoading = false;
   }
 
   Future<Calon?> _fetchAllVotings() async {
@@ -289,184 +291,184 @@ class ManageVoteState extends State<ManageVote> with AutomaticKeepAliveClientMix
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    if(isLoading){return Scaffold();}
-    else{
-    return Container(
-        padding: EdgeInsets.all(26),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Container(
-                padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
-                child: const Icon(
-                  Icons.chevron_left,
-                  color: Colors.white,
+    if (isLoading) {
+      return Scaffold();
+    } else {
+      return Container(
+          padding: EdgeInsets.all(26),
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Container(
+                  padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
+                  child: const Icon(
+                    Icons.chevron_left,
+                    color: Colors.white,
+                  ),
                 ),
-              ),
-              Container(
-                padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
-                child: Center(
-                  child: Text('Nama Voting',
-                      style: TextStyle(
-                          fontFamily: 'Poppins',
-                          fontSize: 24,
-                          color: Colors.white)),
-                ),
-              ),
-              Container(
-                padding: EdgeInsets.fromLTRB(0, 25, 0, 0),
-                child: Center(
-                  child: Text('Persentase pemilih',
-                      style: TextStyle(
-                          fontFamily: 'Poppins',
-                          fontSize: 14,
-                          color: Colors.white)),
-                ),
-              ),
-              Container(
-                padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
-                child: Center(
-                  child: Text('90%',
-                      style: TextStyle(
-                          fontFamily: 'Poppins',
-                          fontSize: 24,
-                          color: Colors.white)),
-                ),
-              ),
-              // SfCircularChart(
-              //   legend: Legend(
-              //       isVisible: true, overflowMode: LegendItemOverflowMode.wrap, backgroundColor: Colors.white, ),
-              //   series: <CircularSeries>[
-              //     PieSeries<dataVoting, String>(
-              //         dataSource: _chartData,
-              //         xValueMapper: (dataVoting data, _) => data.nama_calon,
-              //         yValueMapper: (dataVoting data, _) => data.jumlahVoting,
-              //         dataLabelSettings: DataLabelSettings(isVisible: true),
-              //        )
-              //   ],
-              // ),
-              Padding(padding: EdgeInsets.fromLTRB(0, 15, 0, 10)),
-              Container(
-                padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
-                child: Center(
-                    child: Row(
-                  children: [
-                    Container(
-                      width: 180,
-                      padding: EdgeInsets.fromLTRB(
-                          60, 0, 0, 0), //apply padding to all four sides
-                      child: Text(
-                        'Nama',
+                Container(
+                  padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
+                  child: Center(
+                    child: Text('Nama Voting',
                         style: TextStyle(
                             fontFamily: 'Poppins',
-                            fontWeight: FontWeight.w400,
-                            fontSize: 16,
-                            color: Colors.white),
-                      ),
-                    ),
-                    Container(
-                      width: 80,
-                      child: Text(
-                        'Jumlah pemilih',
+                            fontSize: 24,
+                            color: Colors.white)),
+                  ),
+                ),
+                Container(
+                  padding: EdgeInsets.fromLTRB(0, 25, 0, 0),
+                  child: Center(
+                    child: Text('Persentase pemilih',
                         style: TextStyle(
                             fontFamily: 'Poppins',
-                            fontWeight: FontWeight.w400,
-                            fontSize: 16,
-                            color: Colors.white),
-                      ),
-                    ),
-                    Container(
-                      // padding: EdgeInsets.fromLTRB(0, 0, 30, 0), //apply padding to all four sides
-                      width: 80,
-                      child: Text(
-                        'persentase',
+                            fontSize: 14,
+                            color: Colors.white)),
+                  ),
+                ),
+                Container(
+                  padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
+                  child: Center(
+                    child: Text('90%',
                         style: TextStyle(
                             fontFamily: 'Poppins',
-                            fontWeight: FontWeight.w400,
-                            fontSize: 16,
-                            color: Colors.white),
+                            fontSize: 24,
+                            color: Colors.white)),
+                  ),
+                ),
+                // SfCircularChart(
+                //   legend: Legend(
+                //       isVisible: true, overflowMode: LegendItemOverflowMode.wrap, backgroundColor: Colors.white, ),
+                //   series: <CircularSeries>[
+                //     PieSeries<dataVoting, String>(
+                //         dataSource: _chartData,
+                //         xValueMapper: (dataVoting data, _) => data.nama_calon,
+                //         yValueMapper: (dataVoting data, _) => data.jumlahVoting,
+                //         dataLabelSettings: DataLabelSettings(isVisible: true),
+                //        )
+                //   ],
+                // ),
+                Padding(padding: EdgeInsets.fromLTRB(0, 15, 0, 10)),
+                Container(
+                  padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
+                  child: Center(
+                      child: Row(
+                    children: [
+                      Container(
+                        width: 180,
+                        padding: EdgeInsets.fromLTRB(
+                            60, 0, 0, 0), //apply padding to all four sides
+                        child: Text(
+                          'Nama',
+                          style: TextStyle(
+                              fontFamily: 'Poppins',
+                              fontWeight: FontWeight.w400,
+                              fontSize: 16,
+                              color: Colors.white),
+                        ),
                       ),
-                    ),
-                  ],
-                )),
-              ),
-              Padding(padding: EdgeInsets.fromLTRB(0, 10, 0, 0)),
-              ListView.separated(
-                shrinkWrap: true,
-                itemCount: _votings.data.length,
-                itemBuilder: (context, i) {
-                  return Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: Colors.white,
-                    ),
-                    padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
-                    height: 50,
-                    child: Row(
-                      // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Container(
-                          width: 200,
-                          padding: EdgeInsets.fromLTRB(
-                              60, 0, 0, 0), //apply padding to all four sides
-                          child: Text(
-                            _votings.data[i].attributes!.nama,
-                            // 'test',
-                            style: TextStyle(
-                                fontFamily: 'Poppins',
-                                fontWeight: FontWeight.w400,
-                                fontSize: 16,
-                                color: Colors.black),
-                          ),
+                      Container(
+                        width: 80,
+                        child: Text(
+                          'Jumlah pemilih',
+                          style: TextStyle(
+                              fontFamily: 'Poppins',
+                              fontWeight: FontWeight.w400,
+                              fontSize: 16,
+                              color: Colors.white),
                         ),
-                        Container(
-                          width: 80,
-                          child: Text(
-                            _votings.data[i].attributes!.jumlahVote == null
-                                ? "0"
-                                : (_votings.data[i].attributes!.jumlahVote)
-                                    .toString(),
-                            style: TextStyle(
-                                fontFamily: 'Poppins',
-                                fontWeight: FontWeight.w400,
-                                fontSize: 16,
-                                color: Colors.black),
-                          ),
+                      ),
+                      Container(
+                        // padding: EdgeInsets.fromLTRB(0, 0, 30, 0), //apply padding to all four sides
+                        width: 80,
+                        child: Text(
+                          'persentase',
+                          style: TextStyle(
+                              fontFamily: 'Poppins',
+                              fontWeight: FontWeight.w400,
+                              fontSize: 16,
+                              color: Colors.white),
                         ),
-                        Container(
-                          // padding: EdgeInsets.fromLTRB(0, 0, 30, 0), //apply padding to all four sides
-                          width: 80,
-                          child: Text(
-                            (((_votings.data[i].attributes!.jumlahVote /
-                                            total_vote *
-                                            100)
-                                        .round())
-                                    .toString()) +
-                                '%',
-                            style: TextStyle(
-                                fontFamily: 'Poppins',
-                                fontWeight: FontWeight.w400,
-                                fontSize: 16,
-                                color: Colors.black),
+                      ),
+                    ],
+                  )),
+                ),
+                Padding(padding: EdgeInsets.fromLTRB(0, 10, 0, 0)),
+                ListView.separated(
+                  shrinkWrap: true,
+                  itemCount: _votings.data.length,
+                  itemBuilder: (context, i) {
+                    return Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: Colors.white,
+                      ),
+                      padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
+                      height: 50,
+                      child: Row(
+                        // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Container(
+                            width: 200,
+                            padding: EdgeInsets.fromLTRB(
+                                60, 0, 0, 0), //apply padding to all four sides
+                            child: Text(
+                              _votings.data[i].attributes!.nama,
+                              // 'test',
+                              style: TextStyle(
+                                  fontFamily: 'Poppins',
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 16,
+                                  color: Colors.black),
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                  );
-                },
-                separatorBuilder: (BuildContext context, int index) =>
-                    const Divider(),
-              )
-            ],
-          ),
-        ));}
+                          Container(
+                            width: 80,
+                            child: Text(
+                              _votings.data[i].attributes!.jumlahVote == null
+                                  ? "0"
+                                  : (_votings.data[i].attributes!.jumlahVote)
+                                      .toString(),
+                              style: TextStyle(
+                                  fontFamily: 'Poppins',
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 16,
+                                  color: Colors.black),
+                            ),
+                          ),
+                          Container(
+                            // padding: EdgeInsets.fromLTRB(0, 0, 30, 0), //apply padding to all four sides
+                            width: 80,
+                            child: Text(
+                              (((_votings.data[i].attributes!.jumlahVote /
+                                              total_vote *
+                                              100)
+                                          .round())
+                                      .toString()) +
+                                  '%',
+                              style: TextStyle(
+                                  fontFamily: 'Poppins',
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 16,
+                                  color: Colors.black),
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                  separatorBuilder: (BuildContext context, int index) =>
+                      const Divider(),
+                )
+              ],
+            ),
+          ));
+    }
   }
-  
+
   @override
   bool get wantKeepAlive => true;
-
-  
 }
 
 class dataVoting {

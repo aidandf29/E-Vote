@@ -185,35 +185,7 @@ class MyCustomFormState extends State<MyCustomForm> {
                         color: Colors.white)),
               ),
             ),
-            Container(
-              padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
-              child: Center(
-                child: Text('1 of 3',
-                    style: TextStyle(
-                        fontFamily: 'Poppins',
-                        fontSize: 10,
-                        color: Colors.white)),
-              ),
-            ),
-            Container(
-                padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(
-                      Icons.circle,
-                      color: Color.fromARGB(1000, 255, 206, 64),
-                    ),
-                    Icon(
-                      Icons.circle,
-                      color: Colors.white,
-                    ),
-                    Icon(
-                      Icons.circle,
-                      color: Colors.white,
-                    )
-                  ],
-                )),
+            
             Container(
               child: Text('Nama Voting',
                   style: TextStyle(
