@@ -31,11 +31,14 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  image_picker: ^0.8.6
+  get: ^4.6.5
+  percent_indicator: ^4.2.2
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
+
   cupertino_icons: ^1.0.5
-  get: ^4.6.5
   intl: ^0.17.0
   getwidget: ^3.0.1
   settings_ui: ^2.0.2
@@ -44,17 +47,24 @@ dependencies:
   flutter_launcher_icons: ^0.10.0
   http: ^0.13.5
   dio: ^4.0.6
-  image_picker: ^0.8.6
   flutter_hooks: ^0.18.5+1
   flow_builder: ^0.0.9
   freezed_annotation: ^2.2.0
   flutter_colorpicker: ^1.0.3
   freezed: ^2.2.0
+  flutter_svg: ^1.1.5
+  pinput: ^2.2.16
+  google_fonts: ^3.0.1
+  local_auth: ^2.1.0
+  app_settings: ^4.1.6
+
   flutter_form_builder: ^7.7.0
   collection: ^1.15.0
   syncfusion_flutter_charts: ^20.3.58
 
   
+  shared_preferences: ^2.0.15
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -84,6 +94,7 @@ flutter:
     - assets/image/upload.jpg
     - assets/image/submit.png
     - assets/image/logo_real.png
+    - assets/image/fingerprint.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
