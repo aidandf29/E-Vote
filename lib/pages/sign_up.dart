@@ -6,6 +6,7 @@ import 'dart:ui';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import '../main.dart';
+import 'package:intl/intl.dart';
 
 // import 'package:get/get.dart';
 
@@ -17,9 +18,27 @@ class SignUp extends StatefulWidget {
 class InitState extends State<SignUp> {
   bool isHiddenPassword = true;
   String userId = '';
+  String _selectedDate = 'Tap to select your Birthday date';
+  String _date = '';
+  String now = '';
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController nameController = TextEditingController();
+  TextEditingController addressController = TextEditingController();
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime? d = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(1800),
+      lastDate: DateTime.now(),
+    );
+    if (d != null)
+      setState(() {
+        _selectedDate = new DateFormat.yMMMMd("en_US").format(d);
+        _date = new DateFormat('yyyy-MM-dd').format(d);
+        now = new DateFormat('yyyy-MM-dd').format(DateTime.now());
+      });
+  }
 
   // List<Login> _destinations = <Login>[];
   @override
@@ -28,7 +47,7 @@ class InitState extends State<SignUp> {
     // _populateDestinations();
   }
 
-  signup(String name, email, pass) async {
+  signup(String name, email, pass, address, date) async {
     var jsonResponse = null;
     final getEmailUnique = await http.get(
       Uri.parse(
@@ -53,6 +72,8 @@ class InitState extends State<SignUp> {
             "Name": name,
             "Email": email,
             "Password": pass,
+            "Address": address,
+            "Birth": date,
           }
         }),
       );
@@ -63,20 +84,19 @@ class InitState extends State<SignUp> {
       print(jsonResponse);
 
       if (user['data'] == null) {
-         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            content: const Text('Failed to Sign Up'),
-            duration: const Duration(seconds: 1),
-          ));
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: const Text('Failed to Sign Up'),
+          duration: const Duration(seconds: 1),
+        ));
       } else {
         print("signup success");
         Navigator.pushReplacementNamed(context, '/');
       }
-    }
-    else{
-       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            content: const Text('Email already registered'),
-            duration: const Duration(seconds: 8),
-        ));
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: const Text('Email already registered'),
+        duration: const Duration(seconds: 8),
+      ));
     }
   }
 
@@ -217,7 +237,66 @@ class InitState extends State<SignUp> {
                           color: Colors.white60,
                         ),
                       ))),
-              Padding(padding: EdgeInsets.only(bottom: 170)),
+
+              //Address button
+              SizedBox(
+                width: 300,
+                child: TextFormField(
+                    controller: addressController,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontFamily: 'Poppins',
+                      fontWeight: FontWeight.w400,
+                    ),
+                    decoration: InputDecoration(
+                        focusedBorder: UnderlineInputBorder(
+                            borderSide: const BorderSide(
+                                color: Colors.white, width: 1.5)),
+                        enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                          color: Colors.white,
+                          width: 3.0,
+                        )),
+                        labelText: 'Address',
+                        labelStyle: TextStyle(
+                          fontFamily: 'KulimPark',
+                          fontWeight: FontWeight.w600,
+                          fontSize: 20,
+                          color: Colors.white60,
+                        ))),
+              ),
+              //birthday
+              SizedBox(
+                width: 300,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: <Widget>[
+                    InkWell(
+                      // child: Container(
+                      // decoration: BoxDecoration(color: Colors.white),
+                      child: Text(_selectedDate,
+                          textAlign: TextAlign.left,
+                          style: TextStyle(color: Colors.white)),
+                      // ),
+                      onTap: () {
+                        _selectDate(context);
+                      },
+                    ),
+                    IconButton(
+                      icon: Icon(
+                        Icons.calendar_today,
+                        color: Colors.white,
+                      ),
+                      tooltip: 'Tap to pick your Birthday',
+                      onPressed: () {
+                        _selectDate(context);
+                      },
+                    ),
+                  ],
+                ),
+              ),
+
+              Padding(padding: EdgeInsets.only(bottom: 150)),
               //Enter button
               Container(
                 margin: EdgeInsets.only(right: 30),
@@ -252,7 +331,7 @@ class InitState extends State<SignUp> {
                     else
                       {
                         signup(nameController.text, emailController.text,
-                            passwordController.text)
+                            passwordController.text, addressController.text, _date)
                       }
                   },
                   child: Image.asset('assets/image/submit.png', width: 45),
