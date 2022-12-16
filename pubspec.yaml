@@ -95,6 +95,7 @@ flutter:
     - assets/image/submit.png
     - assets/image/logo_real.png
     - assets/image/fingerprint.png
+    - assets/image/fingerprint_white.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
