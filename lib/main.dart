@@ -17,6 +17,7 @@ import 'package:evote/pages/splash.dart';
 import 'package:evote/pages/scan_fingerprint_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:local_auth/local_auth.dart';
+import 'package:evote/components/navBar.dart';
 
 // import 'package:get/get.dart';
 import 'pages/home.dart';
@@ -27,23 +28,23 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      // home: Home(),
-      routes: {
-        "/": (context) => ScanFingerprint(),
-        "/login": (context) => Home(),
-        "/signup": (context) => SignUp(),
-        // "/scanf": (context) => SignIn(),
-        "/pinauth": (context) => PinAuthPage(),
-        "/splash": (context) => Splash(),
-        "/create": (context) => CreateVoting1(),
-        "/manage": (context) => ManageVoting(),
+      home: BotNavBar(),
+      // routes: {
+      //   "/": (context) => Home(),
+      //   "/login": (context) => Home(),
+      //   "/signup": (context) => SignUp(),
+      //   // "/scanf": (context) => SignIn(),
+      //   "/pinauth": (context) => PinAuthPage(),
+      //   "/splash": (context) => Splash(),
+      //   "/create": (context) => CreateVoting1(),
+      //   "/manage": (context) => ManageVoting(),
 
-        // "/calon": (context) => MultiForm(),
-        "/profile": (context) => Profile(),
-        "/choose": (context) => CandidateChoose(),
-        "/candidate": (context) => CandidateInfo(),
-        "/chooseConfirm": (context) => ScanFingerprint(),
-      },
+      //   // "/calon": (context) => MultiForm(),
+      //   "/profile": (context) => Profile(),
+      //   "/choose": (context) => CandidateChoose(),
+      //   "/candidate": (context) => CandidateInfo(),
+      //   "/chooseConfirm": (context) => ScanFingerprint(),
+      // },
     );
   }
 }
