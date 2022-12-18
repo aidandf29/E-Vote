@@ -344,7 +344,7 @@ class _HomeState extends State<Home> {
                                 style: TextStyle(
                                   fontFamily: 'KulimPark',
                                   color: Colors.white,
-                                  fontSize: 36,
+                                  fontSize: 28,
                                   fontWeight: FontWeight.w600,
                                 )),
                           ),
@@ -376,7 +376,7 @@ class _HomeState extends State<Home> {
                                 style: TextStyle(
                                   fontFamily: 'KulimPark',
                                   color: Colors.white,
-                                  fontSize: 36,
+                                  fontSize: 28,
                                   fontWeight: FontWeight.w600,
                                 )),
                           ),
@@ -405,11 +405,11 @@ class _HomeState extends State<Home> {
                               backgroundColor: Color(0xFFFFCE40),
                               elevation: 400,
                               onPressed: () {
-                                 Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (BuildContext context) =>
-                                          CreateVoting1()));
+                                Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (BuildContext context) =>
+                                            CreateVoting1()));
                               })
                         ]),
                       ))
@@ -485,7 +485,7 @@ class _HomeState extends State<Home> {
                   child: Center(
                     // child: Text(item.waktu),
                     child: Text(
-                        '${((date2.difference(DateTime.parse(item.attributes!.finishedDate!)).inDays)>0 ? '0' :(date2.difference(DateTime.parse(item.attributes!.finishedDate!)).inDays)*-1).toString()} hari'),
+                        '${((date2.difference(DateTime.parse(item.attributes!.finishedDate!)).inDays) > 0 ? '0' : (date2.difference(DateTime.parse(item.attributes!.finishedDate!)).inDays) * -1).toString()} hari'),
                   ))
             ],
           ),

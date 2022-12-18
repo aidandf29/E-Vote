@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       // home: Home(),
       routes: {
-        "/": (context) => SignIn(),
+        "/": (context) => ScanFingerprint(),
         "/login": (context) => Home(),
         "/signup": (context) => SignUp(),
         // "/scanf": (context) => SignIn(),
@@ -42,6 +42,7 @@ class MyApp extends StatelessWidget {
         "/profile": (context) => Profile(),
         "/choose": (context) => CandidateChoose(),
         "/candidate": (context) => CandidateInfo(),
+        "/chooseConfirm": (context) => ScanFingerprint(),
       },
     );
   }
