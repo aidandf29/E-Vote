@@ -1,10 +1,12 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_connect/http/src/utils/utils.dart';
+import 'package:evote/components/candidate_desc_dummy.dart';
 
 class CandidateInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    List<Item> items = Item.generatedItem;
     return Scaffold(
       backgroundColor: Color(0xFF05304B),
       body: Container(
@@ -18,53 +20,23 @@ class CandidateInfo extends StatelessWidget {
                   textAlign: TextAlign.center,
                   style: TextStyle(color: Colors.white, fontSize: 30))),
           Padding(padding: EdgeInsets.only(top: 25)),
-          Container(
-            child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-              Container(
-                child: MaterialButton(
-                  child: Icon(Icons.arrow_left_rounded,
-                      size: 60, color: Colors.white),
-                  onPressed: () {},
-                ),
-              ),
-              Container(
-                height: 200,
-                width: 200,
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.white, width: 3),
-                  image: DecorationImage(
-                      image: NetworkImage("https://picsum.photos/300/300"),
-                      fit: BoxFit.contain),
-                ),
-              ),
-              Container(
-                child: MaterialButton(
-                  child: Icon(Icons.arrow_right_rounded,
-                      size: 60, color: Colors.white),
-                  onPressed: () {},
-                ),
-              ),
-            ]),
-          ),
-          Container(
-              alignment: Alignment.center,
-              height: 70,
-              child: Text("Prabowo Subianto",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(color: Colors.white, fontSize: 28))),
-          Container(
-              height: 185,
-              width: 330,
-              alignment: Alignment.center,
-              padding: EdgeInsets.all(20),
-              decoration: BoxDecoration(
-                  color: Color(0xFF0094B6),
-                  borderRadius: BorderRadius.circular(25)),
-              child: Text(
-                //MAX 300 CHARACTER
-                "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. sdwddmkwajdnfwidmdokwjfniwancwaibfiuaewnfnanifenfipena",
-                style: TextStyle(color: Colors.white, fontSize: 15),
-              )),
+          Center(
+              child: Container(
+            width: 360,
+            height: 460,
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: items?.length,
+              itemBuilder: (context, index) {
+                if (index < items!.length) {
+                  final item = items?[index];
+                  return listItem(item!);
+                } else {
+                  return Text("X");
+                }
+              },
+            ),
+          )),
           Padding(padding: EdgeInsets.only(top: 20)),
           Container(
             child: MaterialButton(
@@ -87,6 +59,55 @@ class CandidateInfo extends StatelessWidget {
           )
         ],
       )),
+    );
+  }
+
+  Widget listItem(Item item) {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 7.5),
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 20),
+        width: 320,
+        height: 450,
+        decoration: BoxDecoration(
+            color: Colors.white30, borderRadius: BorderRadius.circular(25)),
+        child: Column(
+          children: [
+            Padding(padding: EdgeInsets.only(top: 27)),
+            Container(
+              child: Container(
+                height: 160,
+                width: 160,
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.white, width: 3),
+                  image: DecorationImage(
+                      image: NetworkImage('${item.imgUrl}'),
+                      fit: BoxFit.contain),
+                ),
+              ),
+            ),
+            Container(
+                alignment: Alignment.center,
+                height: 60,
+                child: Text('${item.name}',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(color: Colors.white, fontSize: 26))),
+            Container(
+                height: 185,
+                width: 330,
+                alignment: Alignment.center,
+                padding: EdgeInsets.all(20),
+                decoration: BoxDecoration(
+                    color: Color(0xFF0094B6),
+                    borderRadius: BorderRadius.circular(25)),
+                child: Text(
+                  //MAX 300 CHARACTER
+                  '${item.desc}',
+                  style: TextStyle(color: Colors.white, fontSize: 13),
+                )),
+          ],
+        ),
+      ),
     );
   }
 }

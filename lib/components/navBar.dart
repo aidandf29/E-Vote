@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:evote/pages/history.dart';
 import 'package:evote/pages/home.dart';
 import 'package:evote/pages/profil.dart';
+import 'package:evote/pages/letsVote/desc_candidate.dart';
 
 class BotNavBar extends StatefulWidget {
   @override
@@ -9,9 +10,9 @@ class BotNavBar extends StatefulWidget {
 }
 
 class _NavigationBar extends State<BotNavBar> {
-  int _selectedIndex = 1;
+  int _selectedIndex = 0;
   final List<Widget> _pages = [
-    Home(),
+    CandidateInfo(),
     History(),
     Profile(),
   ];
@@ -22,13 +23,9 @@ class _NavigationBar extends State<BotNavBar> {
       body: _pages[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
         elevation: 100,
-        //backgroundColor: Color(0xFF05304B),
-        //backgroundColor: Color(0xFF0094B6),
         backgroundColor: Colors.white,
-        // selectedItemColor: Colors.white,
         selectedItemColor: Color(0xFF05304B),
         unselectedItemColor: Colors.black54,
-        //unselectedItemColor: Colors.white60,
         showSelectedLabels: false,
         showUnselectedLabels: false,
         iconSize: 30,

@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       home: BotNavBar(),
       // routes: {
-      //   "/": (context) => Home(),
+      //   "/": (context) => CandidateInfo(),
       //   "/login": (context) => Home(),
       //   "/signup": (context) => SignUp(),
       //   // "/scanf": (context) => SignIn(),
