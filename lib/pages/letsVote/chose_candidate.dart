@@ -1,7 +1,6 @@
-
 import 'package:evote/components/candidate_card.dart';
 import 'package:evote/pages/manage_vote.dart';
-import 'dart:js';
+// import 'dart:js';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_connect/http/src/utils/utils.dart';
@@ -197,26 +196,24 @@ class Meta {
 class CandidateChoose extends StatefulWidget {
   late final int? choose;
 
-  CandidateChoose(
-      {required this.choose});
+  CandidateChoose({required this.choose});
   @override
   _CandidateChoose createState() => _CandidateChoose();
 }
 
 class _CandidateChoose extends State<CandidateChoose> {
-  
-  List<DataCalon>? items= <DataCalon>[]; 
+  List<DataCalon>? items = <DataCalon>[];
   var choose;
   var jumlah;
   late SharedPreferences prefs;
   late String? stringValue;
-  late  int? intValue;
+  late int? intValue;
   Future get() async {
     prefs = await SharedPreferences.getInstance();
-    
+
     stringValue = prefs.getString('email');
     intValue = prefs.getInt('id');
-     print('test1 ${intValue}');
+    print('test1 ${intValue}');
     var jsonResponse = null;
     final response = await http.get(
       Uri.parse(
@@ -252,51 +249,42 @@ class _CandidateChoose extends State<CandidateChoose> {
     var jsonResponse = null;
     jumlah == null ? jumlah = 0 : jumlah;
     print('test ${intValue}');
-    
-      final response = await http.put(
-        Uri.parse("http://localhost:1337/api/data-calons/${choose}"),
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-        },
-        body: jsonEncode(<Object, dynamic>{
-          "data": {
-            "Jumlah_vote": jumlah+1,
-            "already_voters": intValue
-          }
-        }),
-      );
-      final response_vote = await http.put(
-        Uri.parse("http://localhost:1337/api/votings/${widget.choose}"),
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-        },
-        body: jsonEncode(<Object, dynamic>{
-          "data": {
-            "already_voters": intValue
-          }
-        }),
-      );
-      jsonResponse = (response.body);
-      Map<Object, dynamic> user = jsonDecode(jsonResponse);
-      // var jsonValue = json.decode(jsonResponse['meta']);
-      // Map<Object, dynamic> user = jsonDecode(jsonResponse);
-      // Map<Object, dynamic> user1 = jsonEncode(user['data'][0]);
-      print(jsonResponse);
 
+    final response = await http.put(
+      Uri.parse("http://localhost:1337/api/data-calons/${choose}"),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<Object, dynamic>{
+        "data": {"Jumlah_vote": jumlah + 1, "already_voters": intValue}
+      }),
+    );
+    final response_vote = await http.put(
+      Uri.parse("http://localhost:1337/api/votings/${widget.choose}"),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<Object, dynamic>{
+        "data": {"already_voters": intValue}
+      }),
+    );
+    jsonResponse = (response.body);
+    Map<Object, dynamic> user = jsonDecode(jsonResponse);
+    // var jsonValue = json.decode(jsonResponse['meta']);
+    // Map<Object, dynamic> user = jsonDecode(jsonResponse);
+    // Map<Object, dynamic> user1 = jsonEncode(user['data'][0]);
+    print(jsonResponse);
 
-
-      if (user['data'] == null) {
-        print('gagal');
-      } else {
-        print("vote success");
-        Navigator.pushReplacementNamed(context, '/home');
-      }
+    if (user['data'] == null) {
+      print('gagal');
+    } else {
+      print("vote success");
+      Navigator.pushReplacementNamed(context, '/home');
     }
-     
-  
+  }
+
   @override
   Widget build(BuildContext context) {
-    
     return SafeArea(
         child: FutureBuilder(
             future: get(),
@@ -407,7 +395,7 @@ class _CandidateChoose extends State<CandidateChoose> {
             Container(
               alignment: Alignment.topLeft,
               child: Text(
-                'Nomor Urut ${index+1}',
+                'Nomor Urut ${index + 1}',
                 style: TextStyle(color: Colors.white, fontSize: 20),
               ),
             ),

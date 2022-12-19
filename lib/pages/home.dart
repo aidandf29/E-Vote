@@ -1,4 +1,4 @@
-import 'dart:js';
+// import 'dart:js';
 import 'package:evote/components/vote_card.dart';
 import 'package:evote/pages/createVoting/create_voting1.dart';
 import 'package:flutter/material.dart';
@@ -436,12 +436,11 @@ class _HomeState extends State<Home> {
 
   Widget listItem(context, dataVotings item) {
     return GestureDetector(
-        onTap: () => 
-         Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (BuildContext context) =>
-                                          CandidateInfo(choose: item.id))),
+        onTap: () => Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+                builder: (BuildContext context) =>
+                    CandidateInfo(choose: item.id))),
         child: Container(
             padding: EdgeInsets.all(5),
             child: Container(

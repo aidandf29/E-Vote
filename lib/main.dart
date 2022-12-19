@@ -29,11 +29,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       // home: BotNavBar(),
+      initialRoute: '/scanf',
       routes: {
-        "/": (context) => SignIn(),
+        "/": (context) => FingerprintAuth(),
         "/home": (context) => Home(),
         "/signup": (context) => SignUp(),
-        // "/scanf": (context) => SignIn(),
+        "/scanf": (context) => SignIn(),
         "/pinauth": (context) => PinAuthPage(),
         "/splash": (context) => Splash(),
         "/create": (context) => CreateVoting1(),
