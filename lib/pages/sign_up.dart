@@ -51,7 +51,7 @@ class InitState extends State<SignUp> {
     var jsonResponse = null;
     final getEmailUnique = await http.get(
       Uri.parse(
-          "http://localhost:1337/api/voters?filters[email][\$eqi]=${email}"),
+          "http://20.78.59.91/api/voters?filters[email][\$eqi]=${email}"),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
@@ -63,7 +63,7 @@ class InitState extends State<SignUp> {
     print(user['data'].length);
     if (user['data'].length == 0) {
       final response = await http.post(
-        Uri.parse("http://localhost:1337/api/voters"),
+        Uri.parse("http://20.78.59.91/api/voters"),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },

@@ -191,7 +191,7 @@ class InitState extends State<SignIn> {
     var jsonResponse = null;
     final response = await http.get(
       Uri.parse(
-          "http://localhost:1337/api/voters?filters[email][\$eqi]=${email}&filters[password][\$eq]=${pass}"),
+          "http://20.78.59.91/api/voters?filters[email][\$eqi]=${email}&filters[password][\$eq]=${pass}"),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
@@ -209,7 +209,7 @@ class InitState extends State<SignIn> {
         duration: const Duration(seconds: 1),
       ));
     } else {
-      int? id = test.data![0].id;
+      int? id = test.data?[0].id;
       sharedPreferences.setString('email', email);
       sharedPreferences.setInt('id', id!);
       print("login success");

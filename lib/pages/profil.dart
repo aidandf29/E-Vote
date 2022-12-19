@@ -289,7 +289,7 @@ class _ProfileState extends State<Profile> {
     var jsonResponse = null;
     final response = await http.get(
       Uri.parse(
-          "http://localhost:1337/api/voters?filters[email][\$eqi]=${stringValue}&&populate=%2A"),
+          "http://20.78.59.91/api/voters?filters[email][\$eqi]=${stringValue}&&populate=%2A"),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },

@@ -261,7 +261,7 @@ class _MultiFormState extends State<MultiForm> {
     int? intValue = prefs.getInt('id');
     // var jsonResponse = null;
     var response = await http.post(
-      Uri.parse("http://localhost:1337/api/data-calons"),
+      Uri.parse("http://20.78.59.91/api/data-calons"),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
@@ -279,7 +279,7 @@ class _MultiFormState extends State<MultiForm> {
     calon.add(test.data!.id);
     print(calon);
     final responsess = await http.post(
-      Uri.parse("http://localhost:1337/api/votings"),
+      Uri.parse("http://20.78.59.91/api/votings"),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },

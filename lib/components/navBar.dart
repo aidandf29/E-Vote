@@ -12,7 +12,7 @@ class BotNavBar extends StatefulWidget {
 class _NavigationBar extends State<BotNavBar> {
   int _selectedIndex = 0;
   final List<Widget> _pages = [
-    CandidateInfo(),
+    // CandidateInfo(),
     History(),
     Profile(),
   ];

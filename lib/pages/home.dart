@@ -7,6 +7,7 @@ import 'package:evote/pages/splash.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:evote/pages/letsVote/desc_candidate.dart';
 
 import '../components/dummy.dart';
 
@@ -280,7 +281,7 @@ class _HomeState extends State<Home> {
     var jsonResponse = null;
     final response = await http.get(
       Uri.parse(
-          "http://localhost:1337/api/voters?filters[email][\$eqi]=${stringValue}&&populate=%2A"),
+          "http://20.78.59.91/api/voters?filters[email][\$eqi]=${stringValue}&&populate=%2A"),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
@@ -360,7 +361,7 @@ class _HomeState extends State<Home> {
                                 itemBuilder: (context, index) {
                                   if (index < items!.length) {
                                     final item = items?[index];
-                                    return listItem(item!);
+                                    return listItem(context, item!);
                                   } else {
                                     return Text("X");
                                   }
@@ -392,7 +393,7 @@ class _HomeState extends State<Home> {
                                 itemBuilder: (context, index) {
                                   if (index < itemCreatedVotings!.length) {
                                     final item = itemCreatedVotings![index];
-                                    return listItem(item);
+                                    return listItem(context, item);
                                   } else {
                                     return Text("X");
                                   }
@@ -433,62 +434,69 @@ class _HomeState extends State<Home> {
   //   );
   // }
 
-  Widget listItem(dataVotings item) {
-    return Container(
-        padding: EdgeInsets.all(5),
+  Widget listItem(context, dataVotings item) {
+    return GestureDetector(
+        onTap: () => 
+         Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (BuildContext context) =>
+                                          CandidateInfo(choose: item.id))),
         child: Container(
-          width: 180,
-          decoration: BoxDecoration(
-            color: Color(0xFFE4E4E4),
-            borderRadius: BorderRadius.circular(10),
-          ),
-          child: Column(
-            children: [
-              Padding(padding: EdgeInsetsDirectional.only(top: 20)),
-              Container(
-                height: 135,
-                width: 135,
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                      image: NetworkImage('assets/image/logo_real.png'),
-                      fit: BoxFit.contain),
-                ),
-                child: Text(" "),
+            padding: EdgeInsets.all(5),
+            child: Container(
+              width: 180,
+              decoration: BoxDecoration(
+                color: Color(0xFFE4E4E4),
+                borderRadius: BorderRadius.circular(10),
               ),
-              Padding(
-                padding: EdgeInsets.all(15),
-                child: Text(
-                  item.attributes!.nama!.length < 15
-                      ? item.attributes!.nama!
-                      : "${item.attributes!.nama!.substring(0, 12)}..",
-                  style: TextStyle(fontSize: 18),
-                ),
-              ),
-              LinearPercentIndicator(
-                lineHeight: 12,
-                // percent: item.persentase / 100,
-                percent: 0.75,
-                progressColor: Colors.green.shade300,
-                backgroundColor: Colors.grey,
-                barRadius: Radius.circular(5),
-                center: Text(
-                  // '${item.persentase}%',
-                  '75',
-                  style: TextStyle(color: Colors.white, fontSize: 11),
-                ),
-              ),
-              Container(
-                  margin: EdgeInsets.only(top: 15),
-                  height: 30,
-                  width: 100,
-                  decoration: BoxDecoration(color: Colors.red.shade200),
-                  child: Center(
-                    // child: Text(item.waktu),
+              child: Column(
+                children: [
+                  Padding(padding: EdgeInsetsDirectional.only(top: 20)),
+                  Container(
+                    height: 135,
+                    width: 135,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                          image: NetworkImage('assets/image/logo_real.png'),
+                          fit: BoxFit.contain),
+                    ),
+                    child: Text(" "),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(15),
                     child: Text(
-                        '${((date2.difference(DateTime.parse(item.attributes!.finishedDate!)).inDays) > 0 ? '0' : (date2.difference(DateTime.parse(item.attributes!.finishedDate!)).inDays) * -1).toString()} hari'),
-                  ))
-            ],
-          ),
-        ));
+                      item.attributes!.nama!.length < 15
+                          ? item.attributes!.nama!
+                          : "${item.attributes!.nama!.substring(0, 12)}..",
+                      style: TextStyle(fontSize: 18),
+                    ),
+                  ),
+                  LinearPercentIndicator(
+                    lineHeight: 12,
+                    // percent: item.persentase / 100,
+                    percent: 0.75,
+                    progressColor: Colors.green.shade300,
+                    backgroundColor: Colors.grey,
+                    barRadius: Radius.circular(5),
+                    center: Text(
+                      // '${item.persentase}%',
+                      '75',
+                      style: TextStyle(color: Colors.white, fontSize: 11),
+                    ),
+                  ),
+                  Container(
+                      margin: EdgeInsets.only(top: 15),
+                      height: 30,
+                      width: 100,
+                      decoration: BoxDecoration(color: Colors.red.shade200),
+                      child: Center(
+                        // child: Text(item.waktu),
+                        child: Text(
+                            '${((date2.difference(DateTime.parse(item.attributes!.finishedDate!)).inDays) > 0 ? '0' : (date2.difference(DateTime.parse(item.attributes!.finishedDate!)).inDays) * -1).toString()} hari'),
+                      ))
+                ],
+              ),
+            )));
   }
 }

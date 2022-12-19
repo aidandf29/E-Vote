@@ -28,23 +28,23 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: BotNavBar(),
-      // routes: {
-      //   "/": (context) => CandidateInfo(),
-      //   "/login": (context) => Home(),
-      //   "/signup": (context) => SignUp(),
-      //   // "/scanf": (context) => SignIn(),
-      //   "/pinauth": (context) => PinAuthPage(),
-      //   "/splash": (context) => Splash(),
-      //   "/create": (context) => CreateVoting1(),
-      //   "/manage": (context) => ManageVoting(),
+      // home: BotNavBar(),
+      routes: {
+        "/": (context) => SignIn(),
+        "/home": (context) => Home(),
+        "/signup": (context) => SignUp(),
+        // "/scanf": (context) => SignIn(),
+        "/pinauth": (context) => PinAuthPage(),
+        "/splash": (context) => Splash(),
+        "/create": (context) => CreateVoting1(),
+        "/manage": (context) => ManageVoting(),
 
-      //   // "/calon": (context) => MultiForm(),
-      //   "/profile": (context) => Profile(),
-      //   "/choose": (context) => CandidateChoose(),
-      //   "/candidate": (context) => CandidateInfo(),
-      //   "/chooseConfirm": (context) => ScanFingerprint(),
-      // },
+        // "/calon": (context) => MultiForm(),
+        "/profile": (context) => Profile(),
+        // "/choose": (context) => CandidateChoose(),
+        // "/candidate": (context) => CandidateInfo(),
+        "/chooseConfirm": (context) => ScanFingerprint(),
+      },
     );
   }
 }
