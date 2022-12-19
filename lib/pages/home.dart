@@ -299,10 +299,10 @@ class _HomeState extends State<Home> {
       //   content: const Text('Failed to Sign In'),
       //   duration: const Duration(seconds: 1),
       // ));
-      print("login not success");
+      print("home not success");
     } else {
       // items = (test.data?[0].attributes?.votings?.data != null) as List<AttributesVoting>;
-      print("login success");
+      print("home success");
       print(test.data?[0].attributes?.createdVotings?.data);
       items = test.data?[0].attributes?.votings?.data;
       itemCreatedVotings = test.data?[0].attributes?.createdVotings?.data;
@@ -328,7 +328,64 @@ class _HomeState extends State<Home> {
                 return Center(
                   child: CircularProgressIndicator(),
                 );
-              } else {
+              } else if(itemCreatedVotings == null){
+                return Scaffold(
+                    backgroundColor: Color(0xFF05304B),
+                    body: SingleChildScrollView(
+                        child: Stack(children: <Widget>[
+                      Container(
+                          child: Container(
+                        padding: EdgeInsets.only(top: 35),
+                        child: Column(children: [
+                          //Voting Terdaftar
+                          Container(
+                            padding: EdgeInsets.symmetric(horizontal: 20),
+                            alignment: Alignment.centerLeft,
+                            child: Text('Voting Terdaftar',
+                                style: TextStyle(
+                                  fontFamily: 'KulimPark',
+                                  color: Colors.white,
+                                  fontSize: 28,
+                                  fontWeight: FontWeight.w600,
+                                )),
+                          ),
+                          Container(
+                            padding: EdgeInsets.fromLTRB(20, 20, 20, 10),
+                            // height: 285,
+                            height: 325,),
+                          //Voting Buatan Anda
+                          Container(
+                            padding: EdgeInsets.symmetric(horizontal: 20),
+                            alignment: Alignment.centerLeft,
+                            child: Text('Voting Buatan Anda',
+                                style: TextStyle(
+                                  fontFamily: 'KulimPark',
+                                  color: Colors.white,
+                                  fontSize: 28,
+                                  fontWeight: FontWeight.w600,
+                                )),
+                          ),
+                           Container(
+                            padding: EdgeInsets.fromLTRB(20, 20, 20, 10),
+                            // height: 285,
+                            height: 325,),
+                          FloatingActionButton(
+                              child: Icon(Icons.add),
+                              backgroundColor: Color(0xFFFFCE40),
+                              elevation: 400,
+                              onPressed: () {
+                                Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (BuildContext context) =>
+                                            CreateVoting1()));
+                              })
+                        ]),
+                      ))
+                    ])));
+
+              } 
+              else {
                 return Scaffold(
                     backgroundColor: Color(0xFF05304B),
                     body: SingleChildScrollView(
