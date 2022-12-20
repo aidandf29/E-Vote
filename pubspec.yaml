@@ -62,7 +62,6 @@ dependencies:
   collection: ^1.15.0
   syncfusion_flutter_charts: ^20.3.58
 
-  
   shared_preferences: ^2.0.15
   flutter_session_manager: ^1.0.3
 
@@ -97,6 +96,9 @@ flutter:
     - assets/image/logo_real.png
     - assets/image/fingerprint.png
     - assets/image/fingerprint_white.png
+    - assets/image/logo_betak.png
+    - assets/image/capres1.jpg
+    - assets/image/capres2.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

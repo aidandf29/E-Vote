@@ -11,11 +11,12 @@ import 'package:evote/pages/createVoting/create_voting2.dart';
 import 'package:evote/pages/createVoting/multi_form.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../landing.dart';
+
 void main() => runApp(const CreateVoting1());
 
 class CreateVoting1 extends StatelessWidget {
   const CreateVoting1({Key? key}) : super(key: key);
-  
 
   @override
   Widget build(BuildContext context) {
@@ -131,7 +132,7 @@ class MyCustomFormState extends State<MyCustomForm> {
     //       "finished_date": finished_date,
     //       "Nama": nama,
     //       "voters": list
-         
+
     //     }
     //   }),
     // );
@@ -148,13 +149,16 @@ class MyCustomFormState extends State<MyCustomForm> {
     //     duration: const Duration(seconds: 1),
     //   ));
     // } else {
-      print("create voting success");
-      // print(jsonResponse.data[0].nama);
-     Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (BuildContext context) =>
-                                          MultiForm(started_date: started_date, finished_date: finished_date, nama: nama, list: list)));
+    print("create voting success");
+    // print(jsonResponse.data[0].nama);
+    Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+            builder: (BuildContext context) => MultiForm(
+                started_date: started_date,
+                finished_date: finished_date,
+                nama: nama,
+                list: list)));
     // }
   }
 
@@ -169,12 +173,19 @@ class MyCustomFormState extends State<MyCustomForm> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Container(
-              padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
-              child: const Icon(
-                Icons.chevron_left,
-                color: Colors.white,
-              ),
-            ),
+                width: 30,
+                child: MaterialButton(
+                    child: Icon(
+                      Icons.arrow_back,
+                      color: Colors.white,
+                    ),
+                    onPressed: () {
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (BuildContext context) =>
+                                  LandingPage()));
+                    })),
             Container(
               padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
               child: Center(
@@ -185,7 +196,7 @@ class MyCustomFormState extends State<MyCustomForm> {
                         color: Colors.white)),
               ),
             ),
-            
+
             Container(
               child: Text('Nama Voting',
                   style: TextStyle(
@@ -280,7 +291,7 @@ class MyCustomFormState extends State<MyCustomForm> {
                 ),
               ],
             ),
-            
+
             Container(
               child: Text('Silahkan Masukkan ID Voters',
                   style: TextStyle(
@@ -301,22 +312,25 @@ class MyCustomFormState extends State<MyCustomForm> {
             //   ),
             // ),
             Container(
-              padding: EdgeInsets.fromLTRB(30, 15, 130, 30),
-              child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Icon(
+              padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+              child: Row(children: [
+                Expanded(
+                    flex: 1,
+                    child: Icon(
                       Icons.info,
                       color: Colors.white,
-                    ),
-                    Text(
+                    )),
+                Expanded(
+                    flex: 9,
+                    child: Text(
+                      textAlign: TextAlign.left,
                       "Setiap ID dibatasi dengan koma (,). Contoh 1,2,3,4.\n\ Pastikan Format benar, sistem akan \n\ mendeteksi terkait siapa saja \n\ yang bisa akses voting ini",
                       style: TextStyle(
                           fontFamily: 'Poppins',
                           fontSize: 10,
                           color: Colors.white),
-                    )
-                  ]),
+                    ))
+              ]),
             ),
             // Container(
             //     padding: EdgeInsets.fromLTRB(0, 15, 30, 0),
@@ -335,6 +349,9 @@ class MyCustomFormState extends State<MyCustomForm> {
             //         ),
             //       ),
             //     )),
+            Padding(
+              padding: EdgeInsets.only(bottom: 10),
+            ),
             TextFormField(
               controller: votersController,
               decoration: InputDecoration(
@@ -357,47 +374,40 @@ class MyCustomFormState extends State<MyCustomForm> {
               // },
             ),
             Container(
-                child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Container(
-                    padding: EdgeInsets.fromLTRB(300, 30, 0, 30),
-                    child: Align(
-                      alignment: Alignment.centerRight,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          // Validate returns true if the form is valid, or false otherwise.
-                          if (_formKey.currentState!.validate()) {
-                            // If the form is valid, display a snackbar. In the real world,
-                            // you'd often call a server or save the information in a database.
-                            // ScaffoldMessenger.of(context).showSnackBar(
-                            //   const SnackBar(content: Text('Processing Data')),
-                            // );
-                            // Navigator.push(
-                            //   context,
-                            //   MaterialPageRoute(
-                            //       builder: (context) => MultiForm()),
-                            // );
-                            create(namaController.text, now, _date, votersController.text);
-                          }
-                        },
-                        style: ElevatedButton.styleFrom(
-                          padding: EdgeInsets.symmetric(vertical: 20),
-                          primary: Color.fromARGB(1000, 255, 206, 64),
-                          onPrimary: Colors.white,
-                        ),
-                        child: Text(
-                          'Lanjutkan',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontFamily: 'Poppins',
-                            fontSize: 12,
-                          ),
+                child: Container(
+                    padding: EdgeInsets.fromLTRB(280, 30, 0, 30),
+                    child: ElevatedButton(
+                      onPressed: () {
+                        // Validate returns true if the form is valid, or false otherwise.
+                        if (_formKey.currentState!.validate()) {
+                          // If the form is valid, display a snackbar. In the real world,
+                          // you'd often call a server or save the information in a database.
+                          // ScaffoldMessenger.of(context).showSnackBar(
+                          //   const SnackBar(content: Text('Processing Data')),
+                          // );
+                          // Navigator.push(
+                          //   context,
+                          //   MaterialPageRoute(
+                          //       builder: (context) => MultiForm()),
+                          // );
+                          create(namaController.text, now, _date,
+                              votersController.text);
+                        }
+                      },
+                      style: ElevatedButton.styleFrom(
+                        padding: EdgeInsets.symmetric(vertical: 20),
+                        primary: Color.fromARGB(1000, 255, 206, 64),
+                        onPrimary: Colors.white,
+                      ),
+                      child: Text(
+                        'Lanjutkan',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontFamily: 'Poppins',
+                          fontSize: 12,
                         ),
                       ),
-                    ))
-              ],
-            ))
+                    )))
           ],
         ),
       ),

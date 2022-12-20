@@ -1,8 +1,10 @@
 import 'package:evote/pages/home.dart';
 import 'package:evote/pages/sign_up.dart';
+import 'package:evote/pages/landing.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:local_auth/local_auth.dart';
+import 'package:evote/main.dart';
 
 class FingerprintAuth extends StatefulWidget {
   const FingerprintAuth({Key? key}) : super(key: key);
@@ -88,11 +90,12 @@ class _FingerprintAuthState extends State<FingerprintAuth> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (BuildContext context) =>
-                                        Home()));
+                                        LandingPage()));
                           } on PlatformException catch (error) {
                             print(error);
                             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                              content: const Text('Fingerprint gagal, coba kembali'),
+                              content:
+                                  const Text('Fingerprint gagal, coba kembali'),
                               duration: const Duration(seconds: 8),
                             ));
                           }

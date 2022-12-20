@@ -10,6 +10,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:evote/pages/createVoting/create_voting1.dart';
 import 'package:evote/pages/createVoting/multi_form.dart';
 
+import '../landing.dart';
+
 void main() => runApp(const CreateVoting2());
 
 class CreateVoting2 extends StatelessWidget {
@@ -21,6 +23,18 @@ class CreateVoting2 extends StatelessWidget {
     return MaterialApp(
       title: appTitle,
       home: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Color(0xFF0094B6),
+          leading: IconButton(
+              onPressed: () {
+                // post(context);
+                Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                        builder: (BuildContext context) => LandingPage()));
+              },
+              icon: Icon(Icons.arrow_back)),
+        ),
         backgroundColor: Color.fromARGB(1000, 6, 48, 75),
         // appBar: AppBar(
         //   leading: const Icon(Icons.chevron_left),

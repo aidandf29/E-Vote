@@ -1,3 +1,4 @@
+import 'package:evote/pages/landing.dart';
 import 'package:evote/pages/letsVote/chose_candidate.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -193,8 +194,7 @@ class Meta {
 class CandidateInfo extends StatefulWidget {
   late final int? choose;
 
-  CandidateInfo(
-      {required this.choose});
+  CandidateInfo({required this.choose});
   @override
   _CandidateInfo createState() => _CandidateInfo();
 }
@@ -203,7 +203,8 @@ class _CandidateInfo extends State<CandidateInfo> {
   List<DataCalon>? items = <DataCalon>[];
   var choose;
   var jumlah;
-  
+  late String? namaVoting;
+
   Future get() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
@@ -211,7 +212,8 @@ class _CandidateInfo extends State<CandidateInfo> {
     int? intValue = prefs.getInt('id');
     var jsonResponse = null;
     final response = await http.get(
-      Uri.parse("http://localhost:1337/api/votings/${widget.choose}?populate[0]=calon"),
+      Uri.parse(
+          "http://20.78.59.91/api/votings/${widget.choose}?populate[0]=calon"),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
@@ -226,6 +228,7 @@ class _CandidateInfo extends State<CandidateInfo> {
       print('${widget.choose}');
       print(stringValue);
       print(intValue);
+      namaVoting = test.data?.attributes?.nama;
       items = test.data?.attributes?.calon!.data;
       // print(jsonResponse.data[0].nama);
       // Navigator.pushReplacementNamed(context, '/');
@@ -244,6 +247,24 @@ class _CandidateInfo extends State<CandidateInfo> {
                 );
               } else {
                 return Scaffold(
+                  appBar: AppBar(
+                    backgroundColor: Color(0xFF0094B6),
+                    leading: IconButton(
+                        onPressed: () {
+                          // post(context);
+                          Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (BuildContext context) =>
+                                      LandingPage(
+                                          // jumlah: jumlah,
+                                          // intValue: intValue,
+                                          // choose: choose,
+                                          // pilih: widget.choose,
+                                          )));
+                        },
+                        icon: Icon(Icons.arrow_back)),
+                  ),
                   backgroundColor: Color(0xFF05304B),
                   body: Container(
                       child: Column(
@@ -252,7 +273,7 @@ class _CandidateInfo extends State<CandidateInfo> {
                       Container(
                           width: 360,
                           height: 80,
-                          child: Text("Pemilihan Ketua Himpunan",
+                          child: Text(namaVoting!,
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                   color: Colors.white, fontSize: 30))),
@@ -295,10 +316,11 @@ class _CandidateInfo extends State<CandidateInfo> {
                           ),
                           onPressed: () {
                             Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (BuildContext context) =>
-                                          CandidateChoose(choose: widget.choose)));
+                                context,
+                                MaterialPageRoute(
+                                    builder: (BuildContext context) =>
+                                        CandidateChoose(
+                                            choose: widget.choose)));
                           },
                         ),
                       )
@@ -328,7 +350,7 @@ class _CandidateInfo extends State<CandidateInfo> {
                 decoration: BoxDecoration(
                   border: Border.all(color: Colors.white, width: 3),
                   image: DecorationImage(
-                      image: NetworkImage('assets/image/logo_real.png'),
+                      image: AssetImage('assets/image/capres1.jpg'),
                       fit: BoxFit.contain),
                 ),
               ),
