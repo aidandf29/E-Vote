@@ -22,29 +22,109 @@ import 'package:evote/components/navBar.dart';
 // import 'package:get/get.dart';
 import 'pages/home.dart';
 
-void main() => runApp(MyApp());
+// void main() => runApp(MyApp());
 
-class MyApp extends StatelessWidget {
+// class MyApp extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       // home: BotNavBar(),
+//       routes: {
+//         "/": (context) => SignIn(),
+//         "/home": (context) => Home(),
+//         "/signup": (context) => SignUp(),
+//         // "/scanf": (context) => SignIn(),
+//         "/pinauth": (context) => PinAuthPage(),
+//         "/splash": (context) => Splash(),
+//         "/create": (context) => CreateVoting1(),
+//         "/manage": (context) => ManageVoting(),
+
+//         // "/calon": (context) => MultiForm(),
+//         "/profile": (context) => Profile(),
+//         // "/choose": (context) => CandidateChoose(),
+//         // "/candidate": (context) => CandidateInfo(),
+//         "/chooseConfirm": (context) => ScanFingerprint(),
+//       },
+//     );
+//   }
+// }
+
+void main() => runApp(new MaterialApp(
+      initialRoute: '/sign_in',
+      routes: {
+        '/sign_up': (context) => SignUp(),
+        '/sign_in': (context) => SignIn(),
+      },
+    ));
+
+class Main extends StatefulWidget {
+  late String id;
+  late int indexPage;
+
+  Main({required this.id, required this.indexPage});
+
+  @override
+  _MainState createState() => _MainState();
+}
+
+class _MainState extends State<Main> {
+  int _currentIndex = 0;
+  String userId = "";
+
+  void onTap(int index) {
+    setState(() {
+      _currentIndex = index;
+      widget.indexPage = index;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    userId = widget.id;
+  }
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      // home: BotNavBar(),
-      routes: {
-        "/": (context) => SignIn(),
-        "/home": (context) => Home(),
-        "/signup": (context) => SignUp(),
-        // "/scanf": (context) => SignIn(),
-        "/pinauth": (context) => PinAuthPage(),
-        "/splash": (context) => Splash(),
-        "/create": (context) => CreateVoting1(),
-        "/manage": (context) => ManageVoting(),
+    final pageController = PageController();
+    List<Widget> pageList = <Widget>[
+      Home(),
+      Profile(),
+      History(),
+    ];
 
-        // "/calon": (context) => MultiForm(),
-        "/profile": (context) => Profile(),
-        // "/choose": (context) => CandidateChoose(),
-        // "/candidate": (context) => CandidateInfo(),
-        "/chooseConfirm": (context) => ScanFingerprint(),
-      },
+    return Scaffold(
+      body: pageList[widget.indexPage],
+      bottomNavigationBar: BottomNavigationBar(
+        elevation: 100,
+        backgroundColor: Colors.white,
+        selectedItemColor: Color(0xFF05304B),
+        unselectedItemColor: Colors.black54,
+        showSelectedLabels: false,
+        showUnselectedLabels: false,
+        iconSize: 30,
+        items: [
+          BottomNavigationBarItem(
+            label: 'History',
+            icon: Icon(
+              Icons.history,
+            ),
+          ),
+          BottomNavigationBarItem(
+            label: 'Home',
+            icon: Icon(
+              Icons.home,
+            ),
+          ),
+          BottomNavigationBarItem(
+            label: 'Profile',
+            icon: Icon(
+              Icons.person,
+            ),
+          ),
+        ],
+        onTap: onTap,
+      ),
     );
   }
 }

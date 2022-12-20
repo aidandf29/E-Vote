@@ -253,7 +253,7 @@ class InitState extends State<SignIn> {
                   alignment: Alignment.center,
                   child: (RichText(
                     text: TextSpan(
-                      text: 'E-Vote',
+                      text: 'FVS',
                       style: TextStyle(
                           fontFamily: 'KulimPark',
                           fontWeight: FontWeight.w600,
@@ -351,7 +351,7 @@ class InitState extends State<SignIn> {
               RichText(
                 textAlign: TextAlign.center,
                 text: TextSpan(
-                  text: 'Don' 't have an account?',
+                  text: "Don't have an account?",
                   style: TextStyle(
                       fontFamily: 'Poppins',
                       fontWeight: FontWeight.w400,
