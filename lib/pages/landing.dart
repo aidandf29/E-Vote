@@ -1,26 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:evote/pages/history.dart';
-import 'package:evote/pages/home.dart';
 import 'package:evote/pages/profil.dart';
-import 'package:evote/pages/letsVote/desc_candidate.dart';
+import 'package:evote/pages/home.dart';
+import 'package:evote/pages/createVoting/create_voting1.dart';
 
-class BotNavBar extends StatefulWidget {
+class LandingPage extends StatefulWidget {
   @override
-  _NavigationBar createState() => _NavigationBar();
+  _LandingPageState createState() => new _LandingPageState();
 }
 
-class _NavigationBar extends State<BotNavBar> {
-  int _selectedIndex = 0;
-  final List<Widget> _pages = [
-    Home(),
-    History(),
-    Profile(),
-  ];
+class _LandingPageState extends State<LandingPage> {
+  int _bottomNavCurrentIndex = 0;
+  List<Widget> _container = [new Home(), new CreateVoting1(), new Profile()];
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _pages[_selectedIndex],
+      body: _container[_bottomNavCurrentIndex],
       bottomNavigationBar: BottomNavigationBar(
         elevation: 100,
         backgroundColor: Colors.white,
@@ -29,17 +29,24 @@ class _NavigationBar extends State<BotNavBar> {
         showSelectedLabels: false,
         showUnselectedLabels: false,
         iconSize: 30,
+        type: BottomNavigationBarType.fixed,
+        onTap: (index) {
+          setState(() {
+            _bottomNavCurrentIndex = index;
+          });
+        },
+        currentIndex: _bottomNavCurrentIndex,
         items: [
           BottomNavigationBarItem(
-            label: 'History',
+            label: 'Home',
             icon: Icon(
-              Icons.history,
+              Icons.home,
             ),
           ),
           BottomNavigationBarItem(
             label: 'Home',
             icon: Icon(
-              Icons.home,
+              Icons.add,
             ),
           ),
           BottomNavigationBarItem(
@@ -49,12 +56,6 @@ class _NavigationBar extends State<BotNavBar> {
             ),
           ),
         ],
-        currentIndex: _selectedIndex,
-        onTap: (int index) {
-          setState(() {
-            _selectedIndex = index;
-          });
-        },
       ),
     );
   }

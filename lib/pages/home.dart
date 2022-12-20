@@ -1,4 +1,4 @@
-import 'dart:js';
+// import 'dart:js';
 import 'package:evote/components/vote_card.dart';
 import 'package:evote/pages/createVoting/create_voting1.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:evote/pages/letsVote/desc_candidate.dart';
-
+import 'package:evote/pages/manage_vote.dart';
 import '../components/dummy.dart';
 
 // import 'package:get/get.dart';
@@ -271,6 +271,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   late List<dataVotings>? items = <dataVotings>[];
   late List<dataVotings>? itemCreatedVotings = <dataVotings>[];
+  late String foto;
   final date2 = DateTime.now();
 
   @override
@@ -306,6 +307,7 @@ class _HomeState extends State<Home> {
       print(test.data?[0].attributes?.createdVotings?.data);
       items = test.data?[0].attributes?.votings?.data;
       itemCreatedVotings = test.data?[0].attributes?.createdVotings?.data;
+      // foto =
     }
     // print(intValue);
     // print(jsonResponse.data[0].nama);
@@ -328,7 +330,7 @@ class _HomeState extends State<Home> {
                 return Center(
                   child: CircularProgressIndicator(),
                 );
-              } else if(itemCreatedVotings == null){
+              } else if (itemCreatedVotings == null) {
                 return Scaffold(
                     backgroundColor: Color(0xFF05304B),
                     body: SingleChildScrollView(
@@ -352,7 +354,8 @@ class _HomeState extends State<Home> {
                           Container(
                             padding: EdgeInsets.fromLTRB(20, 20, 20, 10),
                             // height: 285,
-                            height: 325,),
+                            height: 325,
+                          ),
                           //Voting Buatan Anda
                           Container(
                             padding: EdgeInsets.symmetric(horizontal: 20),
@@ -365,27 +368,15 @@ class _HomeState extends State<Home> {
                                   fontWeight: FontWeight.w600,
                                 )),
                           ),
-                           Container(
+                          Container(
                             padding: EdgeInsets.fromLTRB(20, 20, 20, 10),
                             // height: 285,
-                            height: 325,),
-                          FloatingActionButton(
-                              child: Icon(Icons.add),
-                              backgroundColor: Color(0xFFFFCE40),
-                              elevation: 400,
-                              onPressed: () {
-                                Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (BuildContext context) =>
-                                            CreateVoting1()));
-                              })
+                            height: 325,
+                          ),
                         ]),
                       ))
                     ])));
-
-              } 
-              else {
+              } else {
                 return Scaffold(
                     backgroundColor: Color(0xFF05304B),
                     body: SingleChildScrollView(
@@ -450,7 +441,7 @@ class _HomeState extends State<Home> {
                                 itemBuilder: (context, index) {
                                   if (index < itemCreatedVotings!.length) {
                                     final item = itemCreatedVotings![index];
-                                    return listItem(context, item);
+                                    return listItem1(context, item);
                                   } else {
                                     return Text("X");
                                   }
@@ -458,17 +449,17 @@ class _HomeState extends State<Home> {
                               ),
                             ),
                           ),
-                          FloatingActionButton(
-                              child: Icon(Icons.add),
-                              backgroundColor: Color(0xFFFFCE40),
-                              elevation: 400,
-                              onPressed: () {
-                                Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (BuildContext context) =>
-                                            CreateVoting1()));
-                              })
+                          // FloatingActionButton(
+                          //     child: Icon(Icons.add),
+                          //     backgroundColor: Color(0xFFFFCE40),
+                          //     elevation: 400,
+                          //     onPressed: () {
+                          //       Navigator.pushReplacement(
+                          //           context,
+                          //           MaterialPageRoute(
+                          //               builder: (BuildContext context) =>
+                          //                   CreateVoting1()));
+                          //     })
                         ]),
                       ))
                     ])));
@@ -478,27 +469,13 @@ class _HomeState extends State<Home> {
             }));
   }
 
-  // Widget listItem1(AttributesVoting item) {
-  //   return Container(
-  //     padding: EdgeInsets.fromLTRB(20, 20, 20, 10),
-  //     height: 330,
-  //     child: Expanded(
-  //       child: ListView(
-  //         scrollDirection: Axis.horizontal,
-  //         children: [VoteCard(), VoteCard(), VoteCard()],
-  //       ),
-  //     ),
-  //   );
-  // }
-
   Widget listItem(context, dataVotings item) {
     return GestureDetector(
-        onTap: () => 
-         Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (BuildContext context) =>
-                                          CandidateInfo(choose: item.id))),
+        onTap: () => Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+                builder: (BuildContext context) =>
+                    CandidateInfo(choose: item.id))),
         child: Container(
             padding: EdgeInsets.all(5),
             child: Container(
@@ -515,7 +492,7 @@ class _HomeState extends State<Home> {
                     width: 135,
                     decoration: BoxDecoration(
                       image: DecorationImage(
-                          image: NetworkImage('assets/image/logo_real.png'),
+                          image: AssetImage('assets/image/logo_betak.png'),
                           fit: BoxFit.contain),
                     ),
                     child: Text(" "),
@@ -529,19 +506,84 @@ class _HomeState extends State<Home> {
                       style: TextStyle(fontSize: 18),
                     ),
                   ),
-                  LinearPercentIndicator(
-                    lineHeight: 12,
-                    // percent: item.persentase / 100,
-                    percent: 0.75,
-                    progressColor: Colors.green.shade300,
-                    backgroundColor: Colors.grey,
-                    barRadius: Radius.circular(5),
-                    center: Text(
-                      // '${item.persentase}%',
-                      '75',
-                      style: TextStyle(color: Colors.white, fontSize: 11),
+                  // LinearPercentIndicator(
+                  //   lineHeight: 12,
+                  //   // percent: item.persentase / 100,
+                  //   percent: 0.75,
+                  //   progressColor: Colors.green.shade300,
+                  //   backgroundColor: Colors.grey,
+                  //   barRadius: Radius.circular(5),
+                  //   center: Text(
+                  //     '${item.attributes!.persentase!}%',
+                  //     // '75',
+                  //     style: TextStyle(color: Colors.white, fontSize: 11),
+                  //   ),
+                  // ),
+                  Container(
+                      margin: EdgeInsets.only(top: 15),
+                      height: 30,
+                      width: 100,
+                      decoration: BoxDecoration(color: Colors.red.shade200),
+                      child: Center(
+                        // child: Text(item.waktu),
+                        child: Text(
+                            '${((date2.difference(DateTime.parse(item.attributes!.finishedDate!)).inDays) > 0 ? '0' : (date2.difference(DateTime.parse(item.attributes!.finishedDate!)).inDays) * -1).toString()} hari'),
+                      ))
+                ],
+              ),
+            )));
+  }
+
+  Widget listItem1(context, dataVotings item) {
+    return GestureDetector(
+        onTap: () => Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+                builder: (BuildContext context) =>
+                    ManageVote(choose: item.id))),
+        child: Container(
+            padding: EdgeInsets.all(5),
+            child: Container(
+              width: 180,
+              decoration: BoxDecoration(
+                color: Color(0xFFE4E4E4),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Column(
+                children: [
+                  Padding(padding: EdgeInsetsDirectional.only(top: 20)),
+                  Container(
+                    height: 135,
+                    width: 135,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                          image: AssetImage('assets/image/logo_betak.png'),
+                          fit: BoxFit.contain),
+                    ),
+                    child: Text(" "),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(15),
+                    child: Text(
+                      item.attributes!.nama!.length < 15
+                          ? item.attributes!.nama!
+                          : "${item.attributes!.nama!.substring(0, 12)}..",
+                      style: TextStyle(fontSize: 18),
                     ),
                   ),
+                  // LinearPercentIndicator(
+                  //   lineHeight: 12,
+                  //   // percent: item.persentase / 100,
+                  //   percent: 0.75,
+                  //   progressColor: Colors.green.shade300,
+                  //   backgroundColor: Colors.grey,
+                  //   barRadius: Radius.circular(5),
+                  //   center: Text(
+                  //     // '${item.persentase}%',
+                  //     '75',
+                  //     style: TextStyle(color: Colors.white, fontSize: 11),
+                  //   ),
+                  // ),
                   Container(
                       margin: EdgeInsets.only(top: 15),
                       height: 30,

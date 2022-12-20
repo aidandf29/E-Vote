@@ -24,40 +24,41 @@ class FingerprintAuthVoting extends StatefulWidget {
 
 class _FingerprintAuthVotingState extends State<FingerprintAuthVoting> {
   final LocalAuthentication auth = LocalAuthentication();
+  var jsonResponse = null;
+  var response_voteBody = null;
 
-  post(BuildContext context) async {
-    var jsonResponse = null;
-    var jumlah = widget.jumlah;
-    var intValue = widget.intValue;
-    var choose = widget.choose;
-
-    jumlah == null ? jumlah = 0 : jumlah;
-    print('test ${intValue}');
+  Future post(BuildContext context) async {
+    print('test3 ${widget.pilih}');
 
     final response = await http.put(
-      Uri.parse("http://localhost:1337/api/data-calons/${choose}"),
+      Uri.parse("http://localhost:1337/api/data-calons/${widget.choose}"),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
       body: jsonEncode(<Object, dynamic>{
-        "data": {"Jumlah_vote": jumlah + 1, "already_voters": intValue}
+        "data": {
+          "Jumlah_vote": widget.jumlah + 1,
+          "already_voters": widget.intValue
+        }
       }),
     );
-    final response_vote = await http.put(
+    final votings = await http.put(
       Uri.parse("http://localhost:1337/api/votings/${widget.pilih}"),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
       body: jsonEncode(<Object, dynamic>{
-        "data": {"already_voters": intValue}
+        "data": {"already_voters": widget.intValue}
       }),
     );
-    jsonResponse = (response.body);
+    // jsonResponse = (response.body);
+    // response_voteBody = (response_vote.body);
     Map<Object, dynamic> user = jsonDecode(jsonResponse);
     // var jsonValue = json.decode(jsonResponse['meta']);
     // Map<Object, dynamic> user = jsonDecode(jsonResponse);
     // Map<Object, dynamic> user1 = jsonEncode(user['data'][0]);
-    print(jsonResponse);
+    // print('tes111${jsonResponse}');
+    // print('tes111222${response_vote}');
 
     if (user['data'] == null) {
       print('gagal');
@@ -135,9 +136,41 @@ class _FingerprintAuthVotingState extends State<FingerprintAuthVoting> {
                             });
 
                             post(context);
-                           
+                            // final response = await http.put(
+                            //   Uri.parse(
+                            //       "http://localhost:1337/api/data-calons/${widget.choose}"),
+                            //   headers: <String, String>{
+                            //     'Content-Type':
+                            //         'application/json; charset=UTF-8',
+                            //   },
+                            //   body: jsonEncode(<Object, dynamic>{
+                            //     "data": {
+                            //       "Jumlah_vote": widget.jumlah + 1,
+                            //       "already_voters": widget.intValue
+                            //     }
+                            //   }),
+                            // );
+                            // final votings = await http.put(
+                            //   Uri.parse(
+                            //       "http://localhost:1337/api/votings/${widget.pilih}"),
+                            //   headers: <String, String>{
+                            //     'Content-Type':
+                            //         'application/json; charset=UTF-8',
+                            //   },
+                            //   body: jsonEncode(<Object, dynamic>{
+                            //     "data": {"already_voters": widget.intValue}
+                            //   }),
+                            // );
+                            // switch (response.statusCode & votings.statusCode) {
+                            //   case 200:
+                            //     final data = json.decode(response.body);
+                            //     return data;
+                            //   default:
+                            //     throw Exception(response.reasonPhrase);
+                            // }
                           } on PlatformException catch (error) {
-                            print(error);
+                            // print(error);
+                            // post(context);
                             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                               content:
                                   const Text('Fingerprint gagal, coba kembali'),

@@ -11,6 +11,8 @@ import 'package:evote/pages/createVoting/create_voting2.dart';
 import 'package:evote/pages/createVoting/multi_form.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../landing.dart';
+
 void main() => runApp(const CreateVoting1());
 
 class CreateVoting1 extends StatelessWidget {
@@ -171,12 +173,19 @@ class MyCustomFormState extends State<MyCustomForm> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Container(
-              padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
-              child: const Icon(
-                Icons.chevron_left,
-                color: Colors.white,
-              ),
-            ),
+                width: 30,
+                child: MaterialButton(
+                    child: Icon(
+                      Icons.arrow_back,
+                      color: Colors.white,
+                    ),
+                    onPressed: () {
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (BuildContext context) =>
+                                  LandingPage()));
+                    })),
             Container(
               padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
               child: Center(
@@ -303,22 +312,25 @@ class MyCustomFormState extends State<MyCustomForm> {
             //   ),
             // ),
             Container(
-              padding: EdgeInsets.fromLTRB(30, 15, 130, 30),
-              child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Icon(
+              padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+              child: Row(children: [
+                Expanded(
+                    flex: 1,
+                    child: Icon(
                       Icons.info,
                       color: Colors.white,
-                    ),
-                    Text(
+                    )),
+                Expanded(
+                    flex: 9,
+                    child: Text(
+                      textAlign: TextAlign.left,
                       "Setiap ID dibatasi dengan koma (,). Contoh 1,2,3,4.\n\ Pastikan Format benar, sistem akan \n\ mendeteksi terkait siapa saja \n\ yang bisa akses voting ini",
                       style: TextStyle(
                           fontFamily: 'Poppins',
                           fontSize: 10,
                           color: Colors.white),
-                    )
-                  ]),
+                    ))
+              ]),
             ),
             // Container(
             //     padding: EdgeInsets.fromLTRB(0, 15, 30, 0),
@@ -337,6 +349,9 @@ class MyCustomFormState extends State<MyCustomForm> {
             //         ),
             //       ),
             //     )),
+            Padding(
+              padding: EdgeInsets.only(bottom: 10),
+            ),
             TextFormField(
               controller: votersController,
               decoration: InputDecoration(
