@@ -15,7 +15,6 @@ void main() => runApp(const CreateVoting1());
 
 class CreateVoting1 extends StatelessWidget {
   const CreateVoting1({Key? key}) : super(key: key);
-  
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +22,7 @@ class CreateVoting1 extends StatelessWidget {
     return MaterialApp(
       title: appTitle,
       home: Scaffold(
-        backgroundColor: Color.fromARGB(1000, 6, 48, 75),
+        backgroundColor: Color(0xFF05304B),
         // appBar: AppBar(
         //   leading: const Icon(Icons.chevron_left),
         //   backgroundColor: Color.fromARGB(1000, 6, 48, 75),
@@ -131,7 +130,7 @@ class MyCustomFormState extends State<MyCustomForm> {
     //       "finished_date": finished_date,
     //       "Nama": nama,
     //       "voters": list
-         
+
     //     }
     //   }),
     // );
@@ -148,13 +147,16 @@ class MyCustomFormState extends State<MyCustomForm> {
     //     duration: const Duration(seconds: 1),
     //   ));
     // } else {
-      print("create voting success");
-      // print(jsonResponse.data[0].nama);
-     Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (BuildContext context) =>
-                                          MultiForm(started_date: started_date, finished_date: finished_date, nama: nama, list: list)));
+    print("create voting success");
+    // print(jsonResponse.data[0].nama);
+    Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+            builder: (BuildContext context) => MultiForm(
+                started_date: started_date,
+                finished_date: finished_date,
+                nama: nama,
+                list: list)));
     // }
   }
 
@@ -185,7 +187,7 @@ class MyCustomFormState extends State<MyCustomForm> {
                         color: Colors.white)),
               ),
             ),
-            
+
             Container(
               child: Text('Nama Voting',
                   style: TextStyle(
@@ -280,7 +282,7 @@ class MyCustomFormState extends State<MyCustomForm> {
                 ),
               ],
             ),
-            
+
             Container(
               child: Text('Silahkan Masukkan ID Voters',
                   style: TextStyle(
@@ -378,7 +380,8 @@ class MyCustomFormState extends State<MyCustomForm> {
                             //   MaterialPageRoute(
                             //       builder: (context) => MultiForm()),
                             // );
-                            create(namaController.text, now, _date, votersController.text);
+                            create(namaController.text, now, _date,
+                                votersController.text);
                           }
                         },
                         style: ElevatedButton.styleFrom(
