@@ -3,16 +3,70 @@ import 'package:evote/pages/sign_up.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:local_auth/local_auth.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
-class FingerprintAuth extends StatefulWidget {
-  const FingerprintAuth({Key? key}) : super(key: key);
+class FingerprintAuthVoting extends StatefulWidget {
+  final int jumlah;
+  final int? intValue;
+  final int choose;
+  final int? pilih;
+  FingerprintAuthVoting(
+      {required this.jumlah,
+      required this.intValue,
+      required this.choose,
+      required this.pilih});
 
   @override
-  _FingerprintAuthState createState() => _FingerprintAuthState();
+  _FingerprintAuthVotingState createState() => _FingerprintAuthVotingState();
 }
 
-class _FingerprintAuthState extends State<FingerprintAuth> {
+class _FingerprintAuthVotingState extends State<FingerprintAuthVoting> {
   final LocalAuthentication auth = LocalAuthentication();
+  var jsonResponse = null;
+  var response_voteBody = null;
+
+  Future post(BuildContext context) async {
+    print('test3 ${widget.pilih}');
+
+    final response = await http.put(
+      Uri.parse("http://localhost:1337/api/data-calons/${widget.choose}"),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<Object, dynamic>{
+        "data": {
+          "Jumlah_vote": widget.jumlah + 1,
+          "already_voters": widget.intValue
+        }
+      }),
+    );
+    final votings = await http.put(
+      Uri.parse("http://localhost:1337/api/votings/${widget.pilih}"),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<Object, dynamic>{
+        "data": {"already_voters": widget.intValue}
+      }),
+    );
+    // jsonResponse = (response.body);
+    // response_voteBody = (response_vote.body);
+    Map<Object, dynamic> user = jsonDecode(jsonResponse);
+    // var jsonValue = json.decode(jsonResponse['meta']);
+    // Map<Object, dynamic> user = jsonDecode(jsonResponse);
+    // Map<Object, dynamic> user1 = jsonEncode(user['data'][0]);
+    // print('tes111${jsonResponse}');
+    // print('tes111222${response_vote}');
+
+    if (user['data'] == null) {
+      print('gagal');
+    } else {
+      print("vote success");
+      Navigator.pushReplacementNamed(context, '/home');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +80,7 @@ class _FingerprintAuthState extends State<FingerprintAuth> {
           children: [
             Center(
               child: Text(
-                "Login",
+                "Voting",
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 48.0,
@@ -80,19 +134,46 @@ class _FingerprintAuthState extends State<FingerprintAuth> {
                             print({
                               'cek apakah fingerprint benar': didAuthenticate
                             });
-                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                              content: const Text('Fingerprint berhasil'),
-                              duration: const Duration(seconds: 8),
-                            ));
-                            Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (BuildContext context) =>
-                                        Home()));
+
+                            post(context);
+                            // final response = await http.put(
+                            //   Uri.parse(
+                            //       "http://localhost:1337/api/data-calons/${widget.choose}"),
+                            //   headers: <String, String>{
+                            //     'Content-Type':
+                            //         'application/json; charset=UTF-8',
+                            //   },
+                            //   body: jsonEncode(<Object, dynamic>{
+                            //     "data": {
+                            //       "Jumlah_vote": widget.jumlah + 1,
+                            //       "already_voters": widget.intValue
+                            //     }
+                            //   }),
+                            // );
+                            // final votings = await http.put(
+                            //   Uri.parse(
+                            //       "http://localhost:1337/api/votings/${widget.pilih}"),
+                            //   headers: <String, String>{
+                            //     'Content-Type':
+                            //         'application/json; charset=UTF-8',
+                            //   },
+                            //   body: jsonEncode(<Object, dynamic>{
+                            //     "data": {"already_voters": widget.intValue}
+                            //   }),
+                            // );
+                            // switch (response.statusCode & votings.statusCode) {
+                            //   case 200:
+                            //     final data = json.decode(response.body);
+                            //     return data;
+                            //   default:
+                            //     throw Exception(response.reasonPhrase);
+                            // }
                           } on PlatformException catch (error) {
-                            print(error);
+                            // print(error);
+                            // post(context);
                             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                              content: const Text('Fingerprint gagal, coba kembali'),
+                              content:
+                                  const Text('Fingerprint gagal, coba kembali'),
                               duration: const Duration(seconds: 8),
                             ));
                           }

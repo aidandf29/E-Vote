@@ -90,7 +90,7 @@ class MultiForm extends StatefulWidget {
   late final String started_date;
   late final String finished_date;
   late final String nama;
-  late final List list;
+  late final List <String> list;
   MultiForm(
       {required this.started_date,
       required this.finished_date,
@@ -103,6 +103,7 @@ class MultiForm extends StatefulWidget {
 class _MultiFormState extends State<MultiForm> {
   List<UserForm> users = [];
   List calon = [];
+  List<int> lint = [];
 
   @override
   Widget build(BuildContext context) {
@@ -259,6 +260,8 @@ class _MultiFormState extends State<MultiForm> {
   post(nama, desc) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     int? intValue = prefs.getInt('id');
+    print('nama ${nama}');
+    print('print ${desc}');
     // var jsonResponse = null;
     var response = await http.post(
       Uri.parse("http://20.78.59.91/api/data-calons"),
@@ -278,6 +281,7 @@ class _MultiFormState extends State<MultiForm> {
     print(test.data!.id);
     calon.add(test.data!.id);
     print(calon);
+    lint = widget.list.map(int.parse).toList();
     final responsess = await http.post(
       Uri.parse("http://20.78.59.91/api/votings"),
       headers: <String, String>{
@@ -288,7 +292,7 @@ class _MultiFormState extends State<MultiForm> {
           "started_date": widget.started_date,
           "finished_date": widget.finished_date,
           "Nama": widget.nama,
-          "voters": widget.list,
+          "voters": lint,
           "calon": calon,
           "admin": intValue,
         }
@@ -301,7 +305,7 @@ class _MultiFormState extends State<MultiForm> {
         content: const Text('Voting berhasil terbuat'),
         duration: const Duration(seconds: 8),
       ));
-      Navigator.pushReplacementNamed(context, '/');
+      Navigator.pushReplacementNamed(context, '/home');
     } else {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: const Text('Voting gagal terbuat'),

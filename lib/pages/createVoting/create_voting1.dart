@@ -280,30 +280,7 @@ class MyCustomFormState extends State<MyCustomForm> {
                 ),
               ],
             ),
-            Container(
-              child: Text('Thumbnail',
-                  style: TextStyle(
-                      fontFamily: 'Poppins',
-                      fontSize: 16,
-                      color: Colors.white)),
-              padding: EdgeInsets.fromLTRB(5, 20, 0, 5),
-            ),
-            Container(
-                child: GestureDetector(
-              onTap: () {
-                getImage();
-              },
-              child: Center(
-                child: ClipRRect(
-                  child: Image.asset(
-                    'assets/image/upload.jpg',
-                    width: 300,
-                    height: 200,
-                  ),
-                  borderRadius: BorderRadius.circular(50.0),
-                ),
-              ),
-            )),
+            
             Container(
               child: Text('Silahkan Masukkan ID Voters',
                   style: TextStyle(

@@ -1,3 +1,4 @@
+import 'package:evote/pages/scan_fingerprint_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
 import 'package:evote/model/login.dart';
@@ -214,7 +215,10 @@ class InitState extends State<SignIn> {
       sharedPreferences.setInt('id', id!);
       print("login success");
       // print(jsonResponse.data[0].nama);
-      Navigator.pushReplacementNamed(context, '/');
+      Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+              builder: (BuildContext context) => FingerprintAuth()));
     }
   }
 

@@ -1,11 +1,14 @@
 import 'package:evote/components/candidate_card.dart';
+import 'package:evote/pages/home.dart';
 import 'package:evote/pages/manage_vote.dart';
+import 'package:evote/pages/scan_fingerprint_auth.dart';
 // import 'dart:js';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:http/http.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:evote/pages/scan_fingerprint_auth_voting.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import '../../components/candidate_dummy.dart';
@@ -245,43 +248,48 @@ class _CandidateChoose extends State<CandidateChoose> {
     }
   }
 
-  post(BuildContext context) async {
-    var jsonResponse = null;
-    jumlah == null ? jumlah = 0 : jumlah;
-    print('test ${intValue}');
+  // post(BuildContext context) async {
+  //   var jsonResponse = null;
+  //   jumlah == null ? jumlah = 0 : jumlah;
+  //   print('test ${intValue}');
 
-    final response = await http.put(
-      Uri.parse("http://localhost:1337/api/data-calons/${choose}"),
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-      body: jsonEncode(<Object, dynamic>{
-        "data": {"Jumlah_vote": jumlah + 1, "already_voters": intValue}
-      }),
-    );
-    final response_vote = await http.put(
-      Uri.parse("http://localhost:1337/api/votings/${widget.choose}"),
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-      body: jsonEncode(<Object, dynamic>{
-        "data": {"already_voters": intValue}
-      }),
-    );
-    jsonResponse = (response.body);
-    Map<Object, dynamic> user = jsonDecode(jsonResponse);
-    // var jsonValue = json.decode(jsonResponse['meta']);
-    // Map<Object, dynamic> user = jsonDecode(jsonResponse);
-    // Map<Object, dynamic> user1 = jsonEncode(user['data'][0]);
-    print(jsonResponse);
+  //     final response = await http.put(
+  //       Uri.parse("http://localhost:1337/api/data-calons/${choose}"),
+  //       headers: <String, String>{
+  //         'Content-Type': 'application/json; charset=UTF-8',
+  //       },
+  //       body: jsonEncode(<Object, dynamic>{
+  //         "data": {
+  //           "Jumlah_vote": jumlah+1,
+  //           "already_voters": intValue
+  //         }
+  //       }),
+  //     );
+  //     final response_vote = await http.put(
+  //       Uri.parse("http://localhost:1337/api/votings/${widget.choose}"),
+  //       headers: <String, String>{
+  //         'Content-Type': 'application/json; charset=UTF-8',
+  //       },
+  //       body: jsonEncode(<Object, dynamic>{
+  //         "data": {
+  //           "already_voters": intValue
+  //         }
+  //       }),
+  //     );
+  //     jsonResponse = (response.body);
+  //     Map<Object, dynamic> user = jsonDecode(jsonResponse);
+  //     // var jsonValue = json.decode(jsonResponse['meta']);
+  //     // Map<Object, dynamic> user = jsonDecode(jsonResponse);
+  //     // Map<Object, dynamic> user1 = jsonEncode(user['data'][0]);
+  //     print(jsonResponse);
 
-    if (user['data'] == null) {
-      print('gagal');
-    } else {
-      print("vote success");
-      Navigator.pushReplacementNamed(context, '/home');
-    }
-  }
+  //     if (user['data'] == null) {
+  //       print('gagal');
+  //     } else {
+  //       print("vote success");
+  //       Navigator.pushReplacementNamed(context, '/home');
+  //     }
+  //   }
 
   @override
   Widget build(BuildContext context) {
@@ -295,6 +303,23 @@ class _CandidateChoose extends State<CandidateChoose> {
                 );
               } else {
                 return Scaffold(
+                  appBar: AppBar(
+                    backgroundColor: Color(0xFFA7D7C5),
+                    leading: IconButton(
+                        onPressed: () {
+                          // post(context);
+                          Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (BuildContext context) => Home(
+                                      // jumlah: jumlah,
+                                      // intValue: intValue,
+                                      // choose: choose,
+                                      // pilih: widget.choose,
+                                      )));
+                        },
+                        icon: Icon(Icons.arrow_back)),
+                  ),
                   backgroundColor: Color(0xFF0094B6),
                   body: Container(
                       alignment: Alignment.center,
@@ -343,7 +368,17 @@ class _CandidateChoose extends State<CandidateChoose> {
                                   padding: EdgeInsets.only(left: 150),
                                   child: MaterialButton(
                                     onPressed: () {
-                                      post(context);
+                                      // post(context);
+                                      Navigator.pushReplacement(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (BuildContext context) =>
+                                                  FingerprintAuthVoting(
+                                                    jumlah: jumlah,
+                                                    intValue: intValue,
+                                                    choose: choose,
+                                                    pilih: widget.choose,
+                                                  )));
                                     },
                                     padding: EdgeInsets.all(10),
                                     child: Container(
